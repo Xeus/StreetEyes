@@ -1,9 +1,18 @@
-var onDeviceReady = function() {
+		var onDeviceReady = function() {
+			console.log("onDeviceReady() called.");
         	document.getElementById("devready").innerHTML = "OnDeviceReady fired.";
         	pictureSource=navigator.camera.PictureSourceType;
         	destinationType=navigator.camera.DestinationType;
+        	var elementDeviceProperties =
+        		'Device Name: '     + device.name     + '<br />' + 
+                'Device PhoneGap: ' + device.phonegap + '<br />' + 
+                'Device Platform: ' + device.platform + '<br />' + 
+                'Device UUID: '     + device.uuid     + '<br />' + 
+                'Device Version: '  + device.version  + '<br />';
+        	console.log(elementDeviceProperties);
    		};
     	function init() {
+			console.log("init() called.");
             document.addEventListener("deviceready", onDeviceReady, false);
             $.mobile.loadPage("http://benturner.com/streeteyes/postgeoloc.php?lat=" + lat + "&lon=" + lon + "&id=1", {
             	reloadPage : true
@@ -17,7 +26,7 @@ var onDeviceReady = function() {
             navigator.geolocation.getCurrentPosition(onSuccess, onError);
         }   
         function initialize(lat, lon) {
-        	
+			console.log("initialize(lat, lon) called.");
         	var myLatlng = new google.maps.LatLng(lat, lon);
             var myOptions = {
               center: myLatlng,
@@ -35,12 +44,14 @@ var onDeviceReady = function() {
             });
         }
         function loadScript() {
-      	  var script = document.createElement("script");
-      	  script.type = "text/javascript";
-      	  script.src = "http://maps.googleapis.com/maps/api/js?key=AIzaSyDHwAJbB8jkEMvSkZpGBDxSB1fK5MpGfNQ&sensor=false&callback=initialize";
-      	  document.body.appendChild(script);
+        	console.log("loadScript() called.");
+			var script = document.createElement("script");
+      	    script.type = "text/javascript";
+      	    script.src = "http://maps.googleapis.com/maps/api/js?key=AIzaSyDHwAJbB8jkEMvSkZpGBDxSB1fK5MpGfNQ&sensor=false&callback=initialize";
+      	    document.body.appendChild(script);
       	}
         function onSuccess(position) {
+			console.log("onSuccess() called.");
             var element = document.getElementById('geolocation');
             element.innerHTML = '<img src="http://maps.google.com/maps/api/staticmap?center='
             + position.coords.latitude+ ',' +position.coords.longitude +
@@ -59,6 +70,7 @@ var onDeviceReady = function() {
 
         // onError Callback receives a PositionError object
         function onError(error) {
+			console.log("onError() called.");
             alert('code: '    + error.code    + '\n' +
                   'message: ' + error.message + '\n');
         }
@@ -77,6 +89,7 @@ var onDeviceReady = function() {
 
     	// Called when a photo is successfully retrieved
     	function onPhotoDataSuccess(imageData) {
+			console.log("onPhotoDataSuccess() called.");
       		// Uncomment to view the base64 encoded image data
       		// console.log(imageData);
 
@@ -93,6 +106,7 @@ var onDeviceReady = function() {
 
     	// Called when a photo is successfully retrieved
     	function onPhotoURISuccess(imageURI) {
+			console.log("onPhotoURISuccess() called.");
       		// Uncomment to view the image file URI 
       		// console.log(imageURI);
 
@@ -109,18 +123,21 @@ var onDeviceReady = function() {
 
     	// A button will call this function
     	function capturePhoto() {
+			console.log("capturePhoto() called.");
       		// Take picture using device camera and retrieve image as base64-encoded string
       		navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50 });
     	}
 
     	// A button will call this function
     	function capturePhotoEdit() {
+			console.log("capturePhotoEdit() called.");
       		// Take picture using device camera, allow edit, and retrieve image as base64-encoded string  
       		navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 20, allowEdit: true }); 
     	}
 
     	// A button will call this function
     	function getPhoto(source) {
+			console.log("getPhoto() called.");
       		// Retrieve image file location from specified source
       		navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 50, 
         		destinationType: destinationType.FILE_URI,
@@ -129,5 +146,24 @@ var onDeviceReady = function() {
 
     	// Called if something bad happens. 
     	function onFail(message) {
+			console.log("onFail() called.");
       		alert('Failed because: ' + message);
     	}
+    	
+    	// alert dialog dismissed
+        function alertDismissed() {
+        	console.log("alertDismissed() called.");
+            // do something
+        }
+
+        // Show a custom alert
+        //
+        function showAlert() {
+        	console.log("showAlert() called.");
+            navigator.notification.alert(
+                'You are the winner!',  // message
+                alertDismissed,         // callback
+                'Game Over',            // title
+                'Done'                  // buttonName
+            );
+        }

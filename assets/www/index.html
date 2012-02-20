@@ -14,6 +14,7 @@
         // Make your jQuery Mobile framework configuration changes here!
         $.support.cors = true;
         $.mobile.allowCrossDomainPages = true;
+        $.mobile.defaultPageTransition = 'none'; // docs say defaultTransition but are wrong!
     });
     
     </script>
@@ -113,7 +114,7 @@ Attach photo:<BR />
 <TD><IMG SRC="img/profiles/ben.jpg" WIDTH=98 HEIGHT=98 ALT="" BORDER=1></TD><TD VALIGN="top">time, location<BR />message<BR /></TD>
 </TR></TABLE>
 
-<button type="submit" data-theme="b" name="submit0" class="submitRequest" data-inline="true" value="submit-value" ID="acceptRequest0">accept &amp; go live</button>
+<button type="submit" data-theme="b" name="submit0" class="submitRequest" data-inline="true" value="submit-value" ID="acceptRequest0" onclick="showAlert(); return false;">accept &amp; go live</button>
 
 </DIV> <!-- /request -->
 
