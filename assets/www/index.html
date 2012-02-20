@@ -1,0 +1,424 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title>StreetEyes</title>
+	<link rel="stylesheet" href="jquery.mobile/jquery.mobile-1.0.css" type="text/css"/>
+    <link rel="stylesheet" href="css/pgandjqm-style-override.css" type="text/css"/>
+    <script type="text/javascript" charset="utf-8" src="jquery.mobile/jquery-1.6.4.min"></script>
+    <script type="text/javascript" charset="utf-8" src="js/main.js"></script>
+    <script type="text/javascript" charset="utf-8">
+    
+    $(document).bind("mobileinit", function() {
+        // Make your jQuery Mobile framework configuration changes here!
+        $.support.cors = true;
+        $.mobile.allowCrossDomainPages = true;
+    });
+    
+    </script>
+    <script type="text/javascript" charset="utf-8" src="jquery.mobile/jquery.mobile-1.0.js"></script>
+	<script type="text/javascript" charset="utf-8" src="js/phonegap-1.3.0.js"></script>
+	<script type="text/javascript" charset="utf-8" src="js/custom.js"></script>
+    <script type="text/javascript">
+    	
+
+    </script>
+    <!--<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDHwAJbB8jkEMvSkZpGBDxSB1fK5MpGfNQ&sensor=false"></script> -->
+	<style type="text/css">
+        H1, H3, H4 { display: inline; }
+        #header ul li { text-wrap: none; font-size: 8pt; font-family: Arial;}
+        #updateButton { font-size: 8pt;}
+        .request { padding: 5px; margin-bottom: 10px;}
+        button { font-size: 8pt; }
+        .title A, B { letter-spacing: -1px; font-size: 20pt; text-decoration: none; color: white;}
+        .submitRequest { font-size: 8pt; }
+	</style>
+  </head>
+  
+<body onload="init(); initialize(40.729367,-73.993902);">
+
+
+
+<div data-role="page" id="broadcaster">
+
+<DIV data-role="header" data-theme="a">
+
+<TABLE BORDER=0 WIDTH="100%"><TR><TD VALIGN="middle" CLASS="title">
+<a href="./index.html" data-role="button" data-icon="home" data-theme="a" data-inline="true" data-iconpos="notext" style="vertical-align: -15%;">Home</A>
+<A HREF="./index.html"><B>StreetEyes</B></A>
+</TD><TD VALIGN="middle" ALIGN="right">
+<a href="#search" data-role="button" data-icon="search" data-theme="e" data-inline="true" data-iconpos="notext" style="vertical-align: middle;">Search</a>
+<a href="#settings" data-role="button" data-icon="gear" data-theme="e" data-inline="true" data-iconpos="notext" style="vertical-align: middle;">Settings</a>
+</TD></TR></TABLE>
+
+<div data-role="navbar" class="ui-body-a ui-body">
+    <ul>
+        <li><a href="#profile">Your Profile</a></li>
+        <li><a href="#map">Map</a></li>
+        <LI><A HREF="#broadcaster" class="ui-btn-active">Broadcast</A></LI>
+        <LI><A HREF="#viewer">Request</A></LI>
+    </ul>
+</div><!-- /navbar --> 
+
+</DIV> <!-- /header -->
+
+<div data-role="content" data-theme="a">
+
+<H3>BECOME A BEACON</H3><BR />
+
+Your updates:<BR>
+15:21EST, 11 Feb 12 :: Photo from the ITP workshop, not too crowded. [more details]<BR /><BR />
+
+<TABLE BORDER=0 CELLPADDING=5><TR><TD VALIGN="top">
+
+<IMG SRC="img/map.jpg" WIDTH=100 HEIGHT=200 ALT="" BORDER=1>
+<BR />
+<p id="geolocation">Finding geolocation...</p>
+
+</TD><TD VALIGN="top" ALIGN="center">
+
+<div data-role="fieldcontain">
+What are you seeing?<BR />
+<input type="text" name="name" id="name" value="" /><BR /><BR />
+Specify location?<BR />
+<input type="search" name="location" id="search" value="" />
+<BR />
+<a href="buttons-types.html" data-role="button" data-transition="fade" CLASS="updateButton" data-inline="true" data-theme="a" STYLE="font-size: 8pt;">look up location</a>
+<BR /><BR />
+Attach photo:<BR />
+<small>
+<button onclick="capturePhoto();" class="camera">Capture Photo</button>
+    <button onclick="capturePhotoEdit();" class="camera">Capture Editable Photo</button>
+    <button onclick="getPhoto(pictureSource.PHOTOLIBRARY);" class="camera">From Photo Library</button>
+    <button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);" class="camera">From Photo Album</button>
+    <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
+    <img style="display:none;" id="largeImage" src="" />
+    <BR /></small>
+</div>
+
+</TD></TR></TABLE>
+
+<CENTER><a href="buttons-types.html" data-role="button" data-transition="fade" CLASS="updateButton" data-inline="true" data-theme="b">send update</a></CENTER>
+
+<HR NOSHADE>
+
+<H3>REQUESTS</H3><BR /><BR />
+
+<DIV CLASS="request ui-body-e">
+
+<H4>Request from Ben Turner</H4>
+
+<TABLE><TR>
+<TD><IMG SRC="img/profiles/ben.jpg" WIDTH=98 HEIGHT=98 ALT="" BORDER=1></TD><TD VALIGN="top">time, location<BR />message<BR /></TD>
+</TR></TABLE>
+
+<button type="submit" data-theme="b" name="submit0" class="submitRequest" data-inline="true" value="submit-value" ID="acceptRequest0">accept &amp; go live</button>
+
+</DIV> <!-- /request -->
+
+<DIV CLASS="request ui-body-e">
+
+<H4>Request from Phil Groman</H4>
+
+<TABLE><TR>
+<TD><IMG SRC="img/profiles/phil.jpg" WIDTH=100 HEIGHT=100 ALT="" BORDER=1></TD><TD VALIGN="top">time, location<BR />message</TD>
+</TR></TABLE>
+
+<button type="submit" data-theme="b" name="submit1" class="submitRequest" data-inline="true" value="submit-value" ID="acceptRequest1">accept &amp; go live</button>
+
+
+
+</DIV> <!-- /request -->
+
+<DIV ID="requestsDiv"></DIV>
+
+</DIV> <!-- /content -->
+
+</div> <!-- /page -->
+
+
+
+
+<div data-role="page" id="map" data-theme="a">
+
+<DIV data-role="header" data-theme="a">
+
+<TABLE BORDER=0 WIDTH="100%"><TR><TD VALIGN="middle" CLASS="title">
+<a href="./index.html" data-role="button" data-icon="home" data-theme="a" data-inline="true" data-iconpos="notext" style="vertical-align: -15%;">Home</A>
+<A HREF="./index.html"><B>StreetEyes</B></A>
+</TD><TD VALIGN="middle" ALIGN="right">
+<a href="#search" data-role="button" data-icon="search" data-theme="e" data-inline="true" data-iconpos="notext" style="vertical-align: middle;">Search</a>
+<a href="#settings" data-role="button" data-icon="gear" data-theme="e" data-inline="true" data-iconpos="notext" style="vertical-align: middle;">Settings</a>
+</TD></TR></TABLE>
+
+<div data-role="navbar" class="ui-body-a ui-body">
+    <ul>
+        <li><a href="#profile">Your Profile</a></li>
+        <li><a href="#map" class="ui-btn-active">Map</a></li>
+        <LI><A HREF="#broadcaster">Broadcast</A></LI>
+        <LI><A HREF="#viewer">Request</A></LI>
+    </ul>
+</div><!-- /navbar --> 
+
+</DIV> <!-- /header -->
+
+<div data-role="content">
+
+<H3>FIND A BEACON</H3><BR />
+
+<div id="map_canvas" style="width:100%; height:400px"></div>
+
+</DIV> <!-- end content-page -->
+
+</div> <!-- /page -->
+
+
+
+
+<div data-role="page" id="viewer" data-theme="a">
+
+<DIV data-role="header" data-theme="a">
+
+<TABLE BORDER=0 WIDTH="100%"><TR><TD VALIGN="middle" CLASS="title">
+<a href="./index.html" data-role="button" data-icon="home" data-theme="a" data-inline="true" data-iconpos="notext" style="vertical-align: -15%;">Home</A>
+<A HREF="./index.html"><B>StreetEyes</B></A>
+</TD><TD VALIGN="middle" ALIGN="right">
+<a href="#search" data-role="button" data-icon="search" data-theme="e" data-inline="true" data-iconpos="notext" style="vertical-align: middle;">Search</a>
+<a href="#settings" data-role="button" data-icon="gear" data-theme="e" data-inline="true" data-iconpos="notext" style="vertical-align: middle;">Settings</a>
+</TD></TR></TABLE>
+
+<div data-role="navbar" class="ui-body-a ui-body">
+    <ul>
+        <li><a href="#profile">Your Profile</a></li>
+        <li><a href="#map">Map</a></li>
+        <LI><A HREF="#broadcaster">Broadcast</A></LI>
+        <LI><A HREF="#viewer" class="ui-btn-active">Request</A></LI>
+    </ul>
+</div><!-- /navbar --> 
+
+</DIV> <!-- /header -->
+
+<div data-role="content">
+
+<H3>MAKE A VIEW REQUEST</H3><BR />
+
+<FORM NAME="viewForm" ID="viewForm" METHOD="post" ACTION="http://benturner.com/streeteyes/newviewrequest.php">
+
+<div id="map_canvas2" style="width:180px; height:180px"></div>
+
+<div data-role="fieldcontain">
+Request broadcast from which user?<BR />
+<input type="text" name="viewUser" id="viewUser" value="" SIZE=30 />
+</div>
+
+<div data-role="fieldcontain">
+What do you want to get eyes on?<BR />
+<input type="text" name="viewWhat" id="viewWhat" value="" SIZE=30 />
+</div>
+<div data-role="fieldcontain">
+Change location?<BR />
+<input type="search" name="viewLocation" id="viewLocation" value="" SIZE=50 /><BR />
+<a href="search.html" data-role="button" data-transition="fade" CLASS="updateButton" data-inline="true" data-theme="a" STYLE="font-size: 8pt;">look up location</a>
+
+</div>
+
+<div data-role="fieldcontain">
+What multimedia do you want broadcasted?
+        <fieldset data-role="controlgroup">
+          <input type="checkbox" name="viewMedia" id="viewMedia1" class="custom" />
+          <label for="viewMedia1">Text updates/tweets/SMS</label>
+
+          <input type="checkbox" name="viewMedia" id="viewMedia2" class="custom" />
+          <label for="viewMedia2">Live video</label>
+          
+          <input type="checkbox" name="viewMedia" id="viewMedia3" class="custom" />
+          <label for="viewMedia3">Photos</label>
+
+          <input type="checkbox" name="viewMedia" id="viewMedia4" class="custom" />
+          <label for="viewMedia4">Recorded video</label>
+          </fieldset>
+</div>
+
+<CENTER><INPUT type="submit" id="newViewRequest" data-role="button" data-transition="fade" CLASS="updateButton" data-inline="true" data-theme="b" VALUE="send request"></CENTER>
+
+</FORM>
+
+</DIV> <!-- end content-page -->
+
+</div> <!-- /page -->
+
+
+
+
+<div data-role="page" id="profile" data-theme="a">
+
+<DIV data-role="header" data-theme="a">
+
+<TABLE BORDER=0 WIDTH="100%"><TR><TD VALIGN="middle" CLASS="title">
+<a href="./index.html" data-role="button" data-icon="home" data-theme="a" data-inline="true" data-iconpos="notext" style="vertical-align: -15%;">Home</A>
+<A HREF="./index.html"><B>StreetEyes</B></A>
+</TD><TD VALIGN="middle" ALIGN="right">
+<a href="#search" data-role="button" data-icon="search" data-theme="e" data-inline="true" data-iconpos="notext" style="vertical-align: middle;">Search</a>
+<a href="#settings" data-role="button" data-icon="gear" data-theme="e" data-inline="true" data-iconpos="notext" style="vertical-align: middle;">Settings</a>
+</TD></TR></TABLE>
+
+<div data-role="navbar" class="ui-body-a ui-body">
+    <ul>
+        <li><a href="#profile" class="ui-btn-active">Your Profile</a></li>
+        <li><a href="#map">Map</a></li>
+        <LI><A HREF="#broadcaster">Broadcast</A></LI>
+        <LI><A HREF="#viewer">Request</A></LI>
+    </ul>
+</div><!-- /navbar --> 
+
+</DIV> <!-- /header -->
+
+<div data-role="content">
+
+<H3>YOUR PROFILE</H3><BR />
+
+<div data-role="fieldcontain">
+<legend>Settings</legend>
+        <fieldset data-role="controlgroup">
+          <input type="checkbox" name="checkbox-1a" id="checkbox-1a" class="custom" />
+          <label for="checkbox-1a">Text updates/tweets/SMS</label>
+
+          <input type="checkbox" name="checkbox-2a" id="checkbox-2a" class="custom" />
+          <label for="checkbox-2a">Live video</label>
+          
+          <input type="checkbox" name="checkbox-3a" id="checkbox-3a" class="custom" />
+          <label for="checkbox-3a">Photos</label>
+
+          <input type="checkbox" name="checkbox-4a" id="checkbox-4a" class="custom" />
+          <label for="checkbox-4a">Recorded video</label>
+          </fieldset>
+      </div>
+
+<CENTER><a href="buttons-types.html" data-role="button" data-transition="fade" CLASS="updateButton" data-inline="true" data-theme="b">update settings</a></CENTER>
+
+</DIV> <!-- end content-page -->
+
+</div> <!-- /page -->
+
+
+
+<div data-role="page" id="settings" data-theme="a">
+
+<DIV data-role="header" data-theme="a">
+
+<TABLE BORDER=0 WIDTH="100%"><TR><TD VALIGN="middle" CLASS="title">
+<a href="./index.html" data-role="button" data-icon="home" data-theme="a" data-inline="true" data-iconpos="notext" style="vertical-align: -15%;">Home</A>
+<A HREF="./index.html"><B>StreetEyes</B></A>
+</TD><TD VALIGN="middle" ALIGN="right">
+<a href="#search" data-role="button" data-icon="search" data-theme="e" data-inline="true" data-iconpos="notext" style="vertical-align: middle;">Search</a>
+<a href="#settings" data-role="button" data-icon="gear" data-theme="e" data-inline="true" data-iconpos="notext" style="vertical-align: middle;">Settings</a>
+</TD></TR></TABLE>
+
+<div data-role="navbar" class="ui-body-a ui-body">
+    <ul>
+        <li><a href="#profile" class="ui-btn-active">Your Profile</a></li>
+        <li><a href="#map">Map</a></li>
+        <LI><A HREF="#broadcaster">Broadcast</A></LI>
+        <LI><A HREF="#viewer">Request</A></LI>
+    </ul>
+</div><!-- /navbar --> 
+
+</DIV> <!-- /header -->
+
+<div data-role="content">
+
+<H3>YOUR PROFILE</H3><BR />
+
+<div data-role="fieldcontain">
+<legend>Settings</legend>
+        <fieldset data-role="controlgroup">
+          <input type="checkbox" name="checkbox-1a" id="checkbox-1a" class="custom" />
+          <label for="checkbox-1a">Text updates/tweets/SMS</label>
+
+          <input type="checkbox" name="checkbox-2a" id="checkbox-2a" class="custom" />
+          <label for="checkbox-2a">Live video</label>
+          
+          <input type="checkbox" name="checkbox-3a" id="checkbox-3a" class="custom" />
+          <label for="checkbox-3a">Photos</label>
+
+          <input type="checkbox" name="checkbox-4a" id="checkbox-4a" class="custom" />
+          <label for="checkbox-4a">Recorded video</label>
+          </fieldset>
+      </div>
+
+<CENTER><a href="buttons-types.html" data-role="button" data-transition="fade" CLASS="updateButton" data-inline="true" data-theme="b">update settings</a></CENTER>
+
+</DIV> <!-- end content-page -->
+
+</div> <!-- /page -->
+
+
+
+<div data-role="page" id="search" data-theme="a">
+
+<DIV data-role="header" data-theme="a">
+
+<TABLE BORDER=0 WIDTH="100%"><TR><TD VALIGN="middle" CLASS="title">
+<a href="./index.html" data-role="button" data-icon="home" data-theme="a" data-inline="true" data-iconpos="notext" style="vertical-align: -15%;">Home</A>
+<A HREF="./index.html"><B>StreetEyes</B></A>
+</TD><TD VALIGN="middle" ALIGN="right">
+<a href="#search" data-role="button" data-icon="search" data-theme="e" data-inline="true" data-iconpos="notext" style="vertical-align: middle;">Search</a>
+<a href="#settings" data-role="button" data-icon="gear" data-theme="e" data-inline="true" data-iconpos="notext" style="vertical-align: middle;">Settings</a>
+</TD></TR></TABLE>
+
+<div data-role="navbar" class="ui-body-a ui-body">
+    <ul>
+        <li><a href="#profile">Your Profile</a></li>
+        <li><a href="#map">Map</a></li>
+        <LI><A HREF="#broadcaster">Broadcast</A></LI>
+        <LI><A HREF="#viewer">Request</A></LI>
+    </ul>
+</div><!-- /navbar --> 
+
+</DIV> <!-- /header -->
+
+<div data-role="content">
+
+<H3>Search Events</H3><BR />
+
+<div data-role="fieldcontain">
+    <label for="search">Search Input:</label><BR />
+    <input type="search" name="password" id="search" value="" /><BR />
+    <CENTER><input type="submit" value="search" data-theme="e" data-inline="true" /></CENTER>
+</div>
+
+<script type="text/javascript">
+
+function onSuccess(contacts) {
+    alert('Found ' + contacts.length + ' contacts.');
+};
+//
+function onError(contactError) {
+    alert('onError!');
+};
+
+// find all contacts with 'Bob' in any name field
+var options = new ContactFindOptions();
+options.filter="Ben"; 
+var fields = ["displayName", "name"];
+navigator.contacts.find(fields, onSuccess, onError, options);
+
+</script>
+
+</DIV> <!-- end content-page -->
+
+</div> <!-- /page -->
+
+
+<script type="text/javascript">
+
+$(function() {
+	
+});
+
+</script>
+
+</body>
+
+</html>
