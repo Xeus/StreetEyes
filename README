@@ -1,0 +1,7 @@
+StreetEyes is your eyes on the ground, connecting the globe through remote observers.  It coordinates people who want images, updates or video from a remote location, with people who can provide that on-the-ground real-time information via mobile phone.  The app originated as a project for the ITP Mobile Web class.
+
+As an example, the viewer is a student at ITP and wants to know how busy it is at school.  The viewer taps a broadcaster’s icon on a map who is located at ITP.  The viewer requests from the broadcaster that s/he broadcast a video stream, send photos, or write a short description of how busy it is at school.  The broadcaster sends the multimedia to the viewer and uses chat/voice to coordinate the exchange,  and the viewer ends the request after s/he is satisfied.
+
+StreetEyes is being coded for Android 2.2, using PhoneGap & jQuery Mobile.
+
+Authors: Phil Groman, Ben Turner
