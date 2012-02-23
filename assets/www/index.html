@@ -25,7 +25,7 @@
     	
 
     </script>
-    <!--<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDHwAJbB8jkEMvSkZpGBDxSB1fK5MpGfNQ&sensor=false"></script> -->
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDHwAJbB8jkEMvSkZpGBDxSB1fK5MpGfNQ&sensor=false"></script>
 	<style type="text/css">
         H1, H3, H4 { display: inline; }
         #header ul li { text-wrap: none; font-size: 8pt; font-family: Arial;}
@@ -37,13 +37,13 @@
 	</style>
   </head>
   
-<body onload="init(); initialize(40.729367,-73.993902);">
+<body onload="init();">
 
 
 
 <div data-role="page" id="broadcaster">
 
-<DIV data-role="header" data-theme="a">
+<DIV data-role="header" data-theme="a" data-position="fixed">
 
 <TABLE BORDER=0 WIDTH="100%"><TR><TD VALIGN="middle" CLASS="title">
 <a href="./index.html" data-role="button" data-icon="home" data-theme="a" data-inline="true" data-iconpos="notext" style="vertical-align: -15%;">Home</A>
@@ -52,15 +52,6 @@
 <a href="#search" data-role="button" data-icon="search" data-theme="e" data-inline="true" data-iconpos="notext" style="vertical-align: middle;">Search</a>
 <a href="#settings" data-role="button" data-icon="gear" data-theme="e" data-inline="true" data-iconpos="notext" style="vertical-align: middle;">Settings</a>
 </TD></TR></TABLE>
-
-<div data-role="navbar" class="ui-body-a ui-body">
-    <ul>
-        <li><a href="#profile">Your Profile</a></li>
-        <li><a href="#map">Map</a></li>
-        <LI><A HREF="#broadcaster" class="ui-btn-active">Broadcast</A></LI>
-        <LI><A HREF="#viewer">Request</A></LI>
-    </ul>
-</div><!-- /navbar --> 
 
 </DIV> <!-- /header -->
 
@@ -73,17 +64,15 @@ Your updates:<BR>
 
 <TABLE BORDER=0 CELLPADDING=5><TR><TD VALIGN="top">
 
-<IMG SRC="img/map.jpg" WIDTH=100 HEIGHT=200 ALT="" BORDER=1>
-<BR />
 <p id="geolocation">Finding geolocation...</p>
 
 </TD><TD VALIGN="top" ALIGN="center">
 
 <div data-role="fieldcontain">
 What are you seeing?<BR />
-<input type="text" name="name" id="name" value="" /><BR /><BR />
+<input type="text" name="name" id="name" data-theme="a" value="" /><BR /><BR />
 Specify location?<BR />
-<input type="search" name="location" id="search" value="" />
+<input type="search" name="location" data-theme="a" id="search" value="" />
 <BR />
 <a href="buttons-types.html" data-role="button" data-transition="fade" CLASS="updateButton" data-inline="true" data-theme="a" STYLE="font-size: 8pt;">look up location</a>
 <BR /><BR />
@@ -136,6 +125,19 @@ Attach photo:<BR />
 
 </DIV> <!-- /content -->
 
+<DIV data-role="footer" data-theme="a" data-position="fixed">
+
+<div data-role="navbar" class="ui-body-a">
+    <ul>
+        <li><a href="#profile">Your Profile</a></li>
+        <li><a href="#map">Map</a></li>
+        <LI><A HREF="#broadcaster" class="ui-btn-active">Broadcast</A></LI>
+        <LI><A HREF="#viewer">Request</A></LI>
+    </ul>
+</div><!-- /navbar --> 
+
+</DIV> <!-- /footer -->
+
 </div> <!-- /page -->
 
 
@@ -143,7 +145,7 @@ Attach photo:<BR />
 
 <div data-role="page" id="map" data-theme="a">
 
-<DIV data-role="header" data-theme="a">
+<DIV data-role="header" data-theme="a" data-position="fixed">
 
 <TABLE BORDER=0 WIDTH="100%"><TR><TD VALIGN="middle" CLASS="title">
 <a href="./index.html" data-role="button" data-icon="home" data-theme="a" data-inline="true" data-iconpos="notext" style="vertical-align: -15%;">Home</A>
@@ -153,7 +155,19 @@ Attach photo:<BR />
 <a href="#settings" data-role="button" data-icon="gear" data-theme="e" data-inline="true" data-iconpos="notext" style="vertical-align: middle;">Settings</a>
 </TD></TR></TABLE>
 
-<div data-role="navbar" class="ui-body-a ui-body">
+</DIV> <!-- /header -->
+
+<div data-role="content">
+
+<H3>FIND A BEACON</H3><BR />
+
+<div id="map_canvas2" style="width:100%; height:400px"></div>
+
+</DIV> <!-- end content-page -->
+
+<DIV data-role="footer" data-theme="a" data-position="fixed">
+
+<div data-role="navbar" class="ui-body-a">
     <ul>
         <li><a href="#profile">Your Profile</a></li>
         <li><a href="#map" class="ui-btn-active">Map</a></li>
@@ -162,15 +176,7 @@ Attach photo:<BR />
     </ul>
 </div><!-- /navbar --> 
 
-</DIV> <!-- /header -->
-
-<div data-role="content">
-
-<H3>FIND A BEACON</H3><BR />
-
-<div id="map_canvas" style="width:100%; height:400px"></div>
-
-</DIV> <!-- end content-page -->
+</DIV> <!-- /footer -->
 
 </div> <!-- /page -->
 
@@ -179,7 +185,7 @@ Attach photo:<BR />
 
 <div data-role="page" id="viewer" data-theme="a">
 
-<DIV data-role="header" data-theme="a">
+<DIV data-role="header" data-theme="a" data-position="fixed">
 
 <TABLE BORDER=0 WIDTH="100%"><TR><TD VALIGN="middle" CLASS="title">
 <a href="./index.html" data-role="button" data-icon="home" data-theme="a" data-inline="true" data-iconpos="notext" style="vertical-align: -15%;">Home</A>
@@ -188,15 +194,6 @@ Attach photo:<BR />
 <a href="#search" data-role="button" data-icon="search" data-theme="e" data-inline="true" data-iconpos="notext" style="vertical-align: middle;">Search</a>
 <a href="#settings" data-role="button" data-icon="gear" data-theme="e" data-inline="true" data-iconpos="notext" style="vertical-align: middle;">Settings</a>
 </TD></TR></TABLE>
-
-<div data-role="navbar" class="ui-body-a ui-body">
-    <ul>
-        <li><a href="#profile">Your Profile</a></li>
-        <li><a href="#map">Map</a></li>
-        <LI><A HREF="#broadcaster">Broadcast</A></LI>
-        <LI><A HREF="#viewer" class="ui-btn-active">Request</A></LI>
-    </ul>
-</div><!-- /navbar --> 
 
 </DIV> <!-- /header -->
 
@@ -206,7 +203,7 @@ Attach photo:<BR />
 
 <FORM NAME="viewForm" ID="viewForm" METHOD="post" ACTION="http://benturner.com/streeteyes/newviewrequest.php">
 
-<div id="map_canvas2" style="width:180px; height:180px"></div>
+<div id="map_canvas" style="width:180px; height:180px"></div>
 
 <div data-role="fieldcontain">
 Request broadcast from which user?<BR />
@@ -247,6 +244,19 @@ What multimedia do you want broadcasted?
 
 </DIV> <!-- end content-page -->
 
+<DIV data-role="footer" data-theme="a" data-position="fixed">
+
+<div data-role="navbar" class="ui-body-a">
+    <ul>
+        <li><a href="#profile">Your Profile</a></li>
+        <li><a href="#map">Map</a></li>
+        <LI><A HREF="#broadcaster">Broadcast</A></LI>
+        <LI><A HREF="#viewer" class="ui-btn-active">Request</A></LI>
+    </ul>
+</div><!-- /navbar --> 
+
+</DIV> <!-- /footer -->
+
 </div> <!-- /page -->
 
 
@@ -254,7 +264,7 @@ What multimedia do you want broadcasted?
 
 <div data-role="page" id="profile" data-theme="a">
 
-<DIV data-role="header" data-theme="a">
+<DIV data-role="header" data-theme="a" data-position="fixed">
 
 <TABLE BORDER=0 WIDTH="100%"><TR><TD VALIGN="middle" CLASS="title">
 <a href="./index.html" data-role="button" data-icon="home" data-theme="a" data-inline="true" data-iconpos="notext" style="vertical-align: -15%;">Home</A>
@@ -263,15 +273,6 @@ What multimedia do you want broadcasted?
 <a href="#search" data-role="button" data-icon="search" data-theme="e" data-inline="true" data-iconpos="notext" style="vertical-align: middle;">Search</a>
 <a href="#settings" data-role="button" data-icon="gear" data-theme="e" data-inline="true" data-iconpos="notext" style="vertical-align: middle;">Settings</a>
 </TD></TR></TABLE>
-
-<div data-role="navbar" class="ui-body-a ui-body">
-    <ul>
-        <li><a href="#profile" class="ui-btn-active">Your Profile</a></li>
-        <li><a href="#map">Map</a></li>
-        <LI><A HREF="#broadcaster">Broadcast</A></LI>
-        <LI><A HREF="#viewer">Request</A></LI>
-    </ul>
-</div><!-- /navbar --> 
 
 </DIV> <!-- /header -->
 
@@ -299,6 +300,19 @@ What multimedia do you want broadcasted?
 <CENTER><a href="buttons-types.html" data-role="button" data-transition="fade" CLASS="updateButton" data-inline="true" data-theme="b">update settings</a></CENTER>
 
 </DIV> <!-- end content-page -->
+
+<DIV data-role="footer" data-theme="a" data-position="fixed">
+
+<div data-role="navbar" class="ui-body-a">
+    <ul>
+        <li><a href="#profile" class="ui-btn-active">Your Profile</a></li>
+        <li><a href="#map">Map</a></li>
+        <LI><A HREF="#broadcaster">Broadcast</A></LI>
+        <LI><A HREF="#viewer">Request</A></LI>
+    </ul>
+</div><!-- /navbar --> 
+
+</DIV> <!-- /footer -->
 
 </div> <!-- /page -->
 
@@ -306,7 +320,7 @@ What multimedia do you want broadcasted?
 
 <div data-role="page" id="settings" data-theme="a">
 
-<DIV data-role="header" data-theme="a">
+<DIV data-role="header" data-theme="a" data-position="fixed">
 
 <TABLE BORDER=0 WIDTH="100%"><TR><TD VALIGN="middle" CLASS="title">
 <a href="./index.html" data-role="button" data-icon="home" data-theme="a" data-inline="true" data-iconpos="notext" style="vertical-align: -15%;">Home</A>
@@ -315,15 +329,6 @@ What multimedia do you want broadcasted?
 <a href="#search" data-role="button" data-icon="search" data-theme="e" data-inline="true" data-iconpos="notext" style="vertical-align: middle;">Search</a>
 <a href="#settings" data-role="button" data-icon="gear" data-theme="e" data-inline="true" data-iconpos="notext" style="vertical-align: middle;">Settings</a>
 </TD></TR></TABLE>
-
-<div data-role="navbar" class="ui-body-a ui-body">
-    <ul>
-        <li><a href="#profile" class="ui-btn-active">Your Profile</a></li>
-        <li><a href="#map">Map</a></li>
-        <LI><A HREF="#broadcaster">Broadcast</A></LI>
-        <LI><A HREF="#viewer">Request</A></LI>
-    </ul>
-</div><!-- /navbar --> 
 
 </DIV> <!-- /header -->
 
@@ -352,13 +357,26 @@ What multimedia do you want broadcasted?
 
 </DIV> <!-- end content-page -->
 
+<DIV data-role="footer" data-theme="a" data-position="fixed">
+
+<div data-role="navbar" class="ui-body-a">
+    <ul>
+        <li><a href="#profile" class="ui-btn-active">Your Profile</a></li>
+        <li><a href="#map">Map</a></li>
+        <LI><A HREF="#broadcaster">Broadcast</A></LI>
+        <LI><A HREF="#viewer">Request</A></LI>
+    </ul>
+</div><!-- /navbar --> 
+
+</DIV> <!-- /footer -->
+
 </div> <!-- /page -->
 
 
 
 <div data-role="page" id="search" data-theme="a">
 
-<DIV data-role="header" data-theme="a">
+<DIV data-role="header" data-theme="a" data-position="fixed">
 
 <TABLE BORDER=0 WIDTH="100%"><TR><TD VALIGN="middle" CLASS="title">
 <a href="./index.html" data-role="button" data-icon="home" data-theme="a" data-inline="true" data-iconpos="notext" style="vertical-align: -15%;">Home</A>
@@ -367,15 +385,6 @@ What multimedia do you want broadcasted?
 <a href="#search" data-role="button" data-icon="search" data-theme="e" data-inline="true" data-iconpos="notext" style="vertical-align: middle;">Search</a>
 <a href="#settings" data-role="button" data-icon="gear" data-theme="e" data-inline="true" data-iconpos="notext" style="vertical-align: middle;">Settings</a>
 </TD></TR></TABLE>
-
-<div data-role="navbar" class="ui-body-a ui-body">
-    <ul>
-        <li><a href="#profile">Your Profile</a></li>
-        <li><a href="#map">Map</a></li>
-        <LI><A HREF="#broadcaster">Broadcast</A></LI>
-        <LI><A HREF="#viewer">Request</A></LI>
-    </ul>
-</div><!-- /navbar --> 
 
 </DIV> <!-- /header -->
 
@@ -386,11 +395,11 @@ What multimedia do you want broadcasted?
 <div data-role="fieldcontain">
     <label for="search">Search Input:</label><BR />
     <input type="search" name="password" id="search" value="" /><BR />
-    <CENTER><input type="submit" value="search" data-theme="e" data-inline="true" /></CENTER>
+    <CENTER><input type="submit" value="search" data-theme="a" data-inline="true" /></CENTER>
 </div>
 
 <script type="text/javascript">
-
+/*
 function onSuccess(contacts) {
     alert('Found ' + contacts.length + ' contacts.');
 };
@@ -404,10 +413,23 @@ var options = new ContactFindOptions();
 options.filter="Ben"; 
 var fields = ["displayName", "name"];
 navigator.contacts.find(fields, onSuccess, onError, options);
-
+*/
 </script>
 
 </DIV> <!-- end content-page -->
+
+<DIV data-role="footer" data-theme="a" data-position="fixed">
+
+<div data-role="navbar" class="ui-body-a">
+    <ul>
+        <li><a href="#profile">Your Profile</a></li>
+        <li><a href="#map">Map</a></li>
+        <LI><A HREF="#broadcaster">Broadcast</A></LI>
+        <LI><A HREF="#viewer">Request</A></LI>
+    </ul>
+</div><!-- /navbar --> 
+
+</DIV> <!-- /footer -->
 
 </div> <!-- /page -->
 

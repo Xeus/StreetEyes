@@ -1,14 +1,13 @@
 		var onDeviceReady = function() {
 			console.log("onDeviceReady() called.");
-        	document.getElementById("devready").innerHTML = "OnDeviceReady fired.";
         	pictureSource=navigator.camera.PictureSourceType;
         	destinationType=navigator.camera.DestinationType;
         	var elementDeviceProperties =
-        		'Device Name: '     + device.name     + '<br />' + 
-                'Device PhoneGap: ' + device.phonegap + '<br />' + 
-                'Device Platform: ' + device.platform + '<br />' + 
-                'Device UUID: '     + device.uuid     + '<br />' + 
-                'Device Version: '  + device.version  + '<br />';
+        		'Device Name: '     + device.name     + ', ' + 
+                'Device PhoneGap: ' + device.phonegap + ', ' + 
+                'Device Platform: ' + device.platform + ', ' + 
+                'Device UUID: '     + device.uuid     + ', ' + 
+                'Device Version: '  + device.version  + ', ';
         	console.log(elementDeviceProperties);
    		};
     	function init() {
@@ -34,22 +33,36 @@
               mapTypeId: google.maps.MapTypeId.ROADMAP
             };
             var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-            var map2 = new google.maps.Map(document.getElementById("map_canvas2"),
-                    myOptions);
             
             var marker = new google.maps.Marker({
+                position: myLatlng,
+                map: map,
+                title:"NYU-ITP"
+            });
+        }
+        function initialize2(lat, lon) {
+			console.log("initialize2(lat, lon) called.");
+        	var myLatlng2 = new google.maps.LatLng(lat, lon);
+            var myOptions2 = {
+              center: myLatlng2,
+              zoom: 16,
+              mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            var map2 = new google.maps.Map(document.getElementById("map_canvas2"), myOptions2);
+
+            var marker2 = new google.maps.Marker({
                 position: myLatlng,
                 map: map2,
                 title:"NYU-ITP"
             });
         }
-        function loadScript() {
+        /*function loadScript() {
         	console.log("loadScript() called.");
 			var script = document.createElement("script");
       	    script.type = "text/javascript";
-      	    script.src = "http://maps.googleapis.com/maps/api/js?key=AIzaSyDHwAJbB8jkEMvSkZpGBDxSB1fK5MpGfNQ&sensor=false&callback=initialize";
+      	    script.src = "http://maps.googleapis.com/maps/api/js?key=AIzaSyDHwAJbB8jkEMvSkZpGBDxSB1fK5MpGfNQ&sensor=true&callback=initialize";
       	    document.body.appendChild(script);
-      	}
+      	}*/
         function onSuccess(position) {
 			console.log("onSuccess() called.");
             var element = document.getElementById('geolocation');
@@ -66,6 +79,8 @@
 			'Heading: '            + position.coords.heading               + '<br />' +
 			'Speed: '              + position.coords.speed                 + '<br />' +
 			'Timestamp: '          + new Date(position.timestamp)          + '<br />';
+            initialize(position.coords.latitude, position.coords.longitude);
+            initialize2(position.coords.latitude, position.coords.longitude);
         }
 
         // onError Callback receives a PositionError object
@@ -75,8 +90,10 @@
                   'message: ' + error.message + '\n');
         }
 
-        var lat = 40.729367;
-    	var lon = -73.993902;
+        if (lat == '') {
+        	var lat = 40.729367;
+        	var lon = -73.993902;
+        }
         
         
         //window.onload = loadScript;
