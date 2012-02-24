@@ -6,10 +6,13 @@
     }
 
 	var watchID = null;
+	var map = null;
+	var map2 = null;
+	var position = null;
    		
     var onDeviceReady = function() {
 		console.log("onDeviceReady() called.");
-		navigator.geolocation.getCurrentPosition(onSuccess, onError);
+		navigator.geolocation.getCurrentPosition(onSuccess, onError, {timeout:10000});
     	pictureSource=navigator.camera.PictureSourceType;
     	destinationType=navigator.camera.DestinationType;
     	var elementDeviceProperties =
@@ -28,14 +31,13 @@
         			pageContainer: $("#requestsDiv")
         		}
         );
-        var options = { frequency: 10000 };
-        watchID = navigator.geolocation.watchPosition(onSuccessWatch, onError, options);
-        console.log("this is watchID: " + watchID);
+        var options = { frequency: 5000, timeout: 10000 };
+        navigator.geolocation.watchPosition(onSuccessWatch, onError, options);
 	};
 		
         function initialize(lat_map, lon_map) {
 			console.log("initialize() called.");
-        	var myLatlng_map = new google.maps.LatLng(lat_map, lon_map);
+        	myLatlng_map = new google.maps.LatLng(lat_map, lon_map);
             var myOptions = {
               center: myLatlng_map,
               zoom: 16,
@@ -55,17 +57,6 @@
                 title:"NYU-ITP"
             });
         }
-        
-    	//Wait for PhoneGap to connect with the device
-    	//document.addEventListener("deviceready",onDeviceReady,false);
-        
-        /*function loadScript() {
-        	console.log("loadScript() called.");
-			var script = document.createElement("script");
-      	    script.type = "text/javascript";
-      	    script.src = "http://maps.googleapis.com/maps/api/js?key=AIzaSyDHwAJbB8jkEMvSkZpGBDxSB1fK5MpGfNQ&sensor=true&callback=initialize(position.coords.latitude, position.coords.longitude);";
-      	    document.body.appendChild(script);
-        }*/
    		
     	function init() {
 			console.log("init() called.");
@@ -95,9 +86,9 @@
         	console.log("onSuccessWatch() called.");
         	google.maps.event.trigger(map_canvas, 'resize');
         	google.maps.event.trigger(map_canvas2, 'resize');
-        	var myLatlng_map = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
-        	map.center(myLatlng_map);
-        	map2.center(myLatlng_map);
+        	var myLatlng_map = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        	map.setCenter(myLatlng_map);
+        	map2.setCenter(myLatlng_map);
         }
 
         if (lat == '') {
