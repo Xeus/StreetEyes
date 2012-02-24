@@ -21,10 +21,6 @@
     <script type="text/javascript" charset="utf-8" src="jquery.mobile/jquery.mobile-1.0.js"></script>
 	<script type="text/javascript" charset="utf-8" src="js/phonegap-1.3.0.js"></script>
 	<script type="text/javascript" charset="utf-8" src="js/custom.js"></script>
-    <script type="text/javascript">
-    	
-
-    </script>
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDHwAJbB8jkEMvSkZpGBDxSB1fK5MpGfNQ&sensor=false"></script>
 	<style type="text/css">
         H1, H3, H4 { display: inline; }
@@ -37,7 +33,7 @@
 	</style>
   </head>
   
-<body onload="init();">
+<body>
 
 
 
@@ -130,9 +126,9 @@ Attach photo:<BR />
 <div data-role="navbar" class="ui-body-a">
     <ul>
         <li><a href="#profile">Your Profile</a></li>
-        <li><a href="#map">Map</a></li>
+        <li><a href="#map_page" ID="link_map">Map</a></li>
         <LI><A HREF="#broadcaster" class="ui-btn-active">Broadcast</A></LI>
-        <LI><A HREF="#viewer">Request</A></LI>
+        <LI><A HREF="#viewer" ID="link_viewer">Request</A></LI>
     </ul>
 </div><!-- /navbar --> 
 
@@ -143,7 +139,7 @@ Attach photo:<BR />
 
 
 
-<div data-role="page" id="map" data-theme="a">
+<div data-role="page" id="map_page" data-theme="a">
 
 <DIV data-role="header" data-theme="a" data-position="fixed">
 
@@ -170,7 +166,7 @@ Attach photo:<BR />
 <div data-role="navbar" class="ui-body-a">
     <ul>
         <li><a href="#profile">Your Profile</a></li>
-        <li><a href="#map" class="ui-btn-active">Map</a></li>
+        <li><a href="#map_page" class="ui-btn-active">Map</a></li>
         <LI><A HREF="#broadcaster">Broadcast</A></LI>
         <LI><A HREF="#viewer">Request</A></LI>
     </ul>
@@ -249,7 +245,7 @@ What multimedia do you want broadcasted?
 <div data-role="navbar" class="ui-body-a">
     <ul>
         <li><a href="#profile">Your Profile</a></li>
-        <li><a href="#map">Map</a></li>
+        <li><a href="#map_page">Map</a></li>
         <LI><A HREF="#broadcaster">Broadcast</A></LI>
         <LI><A HREF="#viewer" class="ui-btn-active">Request</A></LI>
     </ul>
@@ -306,7 +302,7 @@ What multimedia do you want broadcasted?
 <div data-role="navbar" class="ui-body-a">
     <ul>
         <li><a href="#profile" class="ui-btn-active">Your Profile</a></li>
-        <li><a href="#map">Map</a></li>
+        <li><a href="#map_page">Map</a></li>
         <LI><A HREF="#broadcaster">Broadcast</A></LI>
         <LI><A HREF="#viewer">Request</A></LI>
     </ul>
@@ -362,7 +358,7 @@ What multimedia do you want broadcasted?
 <div data-role="navbar" class="ui-body-a">
     <ul>
         <li><a href="#profile" class="ui-btn-active">Your Profile</a></li>
-        <li><a href="#map">Map</a></li>
+        <li><a href="#map_page">Map</a></li>
         <LI><A HREF="#broadcaster">Broadcast</A></LI>
         <LI><A HREF="#viewer">Request</A></LI>
     </ul>
@@ -423,7 +419,7 @@ navigator.contacts.find(fields, onSuccess, onError, options);
 <div data-role="navbar" class="ui-body-a">
     <ul>
         <li><a href="#profile">Your Profile</a></li>
-        <li><a href="#map">Map</a></li>
+        <li><a href="#map_page">Map</a></li>
         <LI><A HREF="#broadcaster">Broadcast</A></LI>
         <LI><A HREF="#viewer">Request</A></LI>
     </ul>
@@ -437,7 +433,17 @@ navigator.contacts.find(fields, onSuccess, onError, options);
 <script type="text/javascript">
 
 $(function() {
-	
+	init();
+	google.maps.event.trigger(map_canvas, 'resize');
+	google.maps.event.trigger(map_canvas2, 'resize');
+	$('#link_map_page').live('click', function() {
+		google.maps.event.trigger(map_canvas, 'resize');
+		google.maps.event.trigger(map_canvas2, 'resize');
+	});
+	$('#link_viewer').live('click', function() {
+		google.maps.event.trigger(map_canvas, 'resize');
+		google.maps.event.trigger(map_canvas2, 'resize');
+	});
 });
 
 </script>

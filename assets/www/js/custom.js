@@ -1,68 +1,77 @@
-		var onDeviceReady = function() {
-			console.log("onDeviceReady() called.");
-        	pictureSource=navigator.camera.PictureSourceType;
-        	destinationType=navigator.camera.DestinationType;
-        	var elementDeviceProperties =
-        		'Device Name: '     + device.name     + ', ' + 
-                'Device PhoneGap: ' + device.phonegap + ', ' + 
-                'Device Platform: ' + device.platform + ', ' + 
-                'Device UUID: '     + device.uuid     + ', ' + 
-                'Device Version: '  + device.version  + ', ';
-        	console.log(elementDeviceProperties);
-   		};
-    	function init() {
-			console.log("init() called.");
-            document.addEventListener("deviceready", onDeviceReady, false);
-            $.mobile.loadPage("http://benturner.com/streeteyes/postgeoloc.php?lat=" + lat + "&lon=" + lon + "&id=1", {
-            	reloadPage : true
-            }); 
-            $("#requestsDiv").load("http://benturner.com/streeteyes/requests.php");
-            $.mobile.loadPage("http://benturner.com/streeteyes/requests.php",
-            		{
-            			pageContainer: $("#requestsDiv")
-            		}
-            );
-            navigator.geolocation.getCurrentPosition(onSuccess, onError);
-        }   
-        function initialize(lat, lon) {
-			console.log("initialize(lat, lon) called.");
-        	var myLatlng = new google.maps.LatLng(lat, lon);
+	// onError Callback receives a PositionError object
+    function onError(error) {
+			console.log("onError() called.");
+            alert('code: '    + error.code    + '\n' +
+                  'message: ' + error.message + '\n');
+    }
+
+	var watchID = null;
+   		
+    var onDeviceReady = function() {
+		console.log("onDeviceReady() called.");
+		navigator.geolocation.getCurrentPosition(onSuccess, onError);
+    	pictureSource=navigator.camera.PictureSourceType;
+    	destinationType=navigator.camera.DestinationType;
+    	var elementDeviceProperties =
+    		'Device Name: '     + device.name     + ', ' + 
+            'Device PhoneGap: ' + device.phonegap + ', ' + 
+            'Device Platform: ' + device.platform + ', ' + 
+            'Device UUID: '     + device.uuid     + ', ' + 
+            'Device Version: '  + device.version  + ', ';
+    	console.log(elementDeviceProperties);
+    	$.mobile.loadPage("http://benturner.com/streeteyes/postgeoloc.php?lat=" + lat + "&lon=" + lon + "&id=1", {
+        	reloadPage : true
+        }); 
+        $("#requestsDiv").load("http://benturner.com/streeteyes/requests.php");
+        $.mobile.loadPage("http://benturner.com/streeteyes/requests.php",
+        		{
+        			pageContainer: $("#requestsDiv")
+        		}
+        );
+        var options = { frequency: 10000 };
+        watchID = navigator.geolocation.watchPosition(onSuccessWatch, onError, options);
+        console.log("this is watchID: " + watchID);
+	};
+		
+        function initialize(lat_map, lon_map) {
+			console.log("initialize() called.");
+        	var myLatlng_map = new google.maps.LatLng(lat_map, lon_map);
             var myOptions = {
-              center: myLatlng,
+              center: myLatlng_map,
               zoom: 16,
               mapTypeId: google.maps.MapTypeId.ROADMAP
             };
-            var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+            map2 = new google.maps.Map(document.getElementById("map_canvas2"), myOptions);
+            var marker2 = new google.maps.Marker({
+                position: myLatlng_map,
+                map: map2,
+                title:"NYU-ITP"
+            });
             
+            map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
             var marker = new google.maps.Marker({
-                position: myLatlng,
+                position: myLatlng_map,
                 map: map,
                 title:"NYU-ITP"
             });
         }
-        function initialize2(lat, lon) {
-			console.log("initialize2(lat, lon) called.");
-        	var myLatlng2 = new google.maps.LatLng(lat, lon);
-            var myOptions2 = {
-              center: myLatlng2,
-              zoom: 16,
-              mapTypeId: google.maps.MapTypeId.ROADMAP
-            };
-            var map2 = new google.maps.Map(document.getElementById("map_canvas2"), myOptions2);
-
-            var marker2 = new google.maps.Marker({
-                position: myLatlng,
-                map: map2,
-                title:"NYU-ITP"
-            });
-        }
+        
+    	//Wait for PhoneGap to connect with the device
+    	//document.addEventListener("deviceready",onDeviceReady,false);
+        
         /*function loadScript() {
         	console.log("loadScript() called.");
 			var script = document.createElement("script");
       	    script.type = "text/javascript";
-      	    script.src = "http://maps.googleapis.com/maps/api/js?key=AIzaSyDHwAJbB8jkEMvSkZpGBDxSB1fK5MpGfNQ&sensor=true&callback=initialize";
+      	    script.src = "http://maps.googleapis.com/maps/api/js?key=AIzaSyDHwAJbB8jkEMvSkZpGBDxSB1fK5MpGfNQ&sensor=true&callback=initialize(position.coords.latitude, position.coords.longitude);";
       	    document.body.appendChild(script);
-      	}*/
+        }*/
+   		
+    	function init() {
+			console.log("init() called.");
+            document.addEventListener("deviceready", onDeviceReady, false);
+        }   
+        
         function onSuccess(position) {
 			console.log("onSuccess() called.");
             var element = document.getElementById('geolocation');
@@ -80,23 +89,21 @@
 			'Speed: '              + position.coords.speed                 + '<br />' +
 			'Timestamp: '          + new Date(position.timestamp)          + '<br />';
             initialize(position.coords.latitude, position.coords.longitude);
-            initialize2(position.coords.latitude, position.coords.longitude);
         }
-
-        // onError Callback receives a PositionError object
-        function onError(error) {
-			console.log("onError() called.");
-            alert('code: '    + error.code    + '\n' +
-                  'message: ' + error.message + '\n');
+        
+        function onSuccessWatch(position) {
+        	console.log("onSuccessWatch() called.");
+        	google.maps.event.trigger(map_canvas, 'resize');
+        	google.maps.event.trigger(map_canvas2, 'resize');
+        	var myLatlng_map = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+        	map.center(myLatlng_map);
+        	map2.center(myLatlng_map);
         }
 
         if (lat == '') {
         	var lat = 40.729367;
         	var lon = -73.993902;
         }
-        
-        
-        //window.onload = loadScript;
 
     	var pictureSource;   // picture source
     	var destinationType; // sets the format of returned value 
@@ -184,3 +191,6 @@
                 'Done'                  // buttonName
             );
         }
+        
+        
+        
