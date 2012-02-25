@@ -108,7 +108,11 @@ Attach photo:<BR />
 <TD><IMG SRC="img/profiles/ben.jpg" WIDTH=98 HEIGHT=98 ALT="" BORDER=1></TD><TD VALIGN="top">time, location<BR />message<BR /></TD>
 </TR></TABLE>
 
-<button type="submit" data-theme="b" name="submit0" class="submitRequest" data-inline="true" value="submit-value" ID="acceptRequest0" onclick="showAlert(); return false;">accept &amp; go live</button>
+<FORM NAME="requestForm0" ID="requestForm0" METHOD="post" ACTION="http://benturner.com/streeteyes/acceptrequest.php">
+<INPUT TYPE="hidden" NAME="requestHidden" VALUE=0 />
+<INPUT TYPE="hidden" NAME="acceptedBy" VALUE=0 />
+<button type="submit" data-theme="b" name="submit0" data-mini="true" class="submitRequest" data-inline="true" value="submit-value" ID="acceptRequest0" onclick="showAlert(); return false;">accept &amp; go live</button>
+</FORM>
 
 </DIV> <!-- /request -->
 
@@ -120,7 +124,11 @@ Attach photo:<BR />
 <TD><IMG SRC="img/profiles/phil.jpg" WIDTH=100 HEIGHT=100 ALT="" BORDER=1></TD><TD VALIGN="top">time, location<BR />message</TD>
 </TR></TABLE>
 
-<button type="submit" data-theme="b" name="submit1" class="submitRequest" data-inline="true" value="submit-value" ID="acceptRequest1">accept &amp; go live</button>
+<FORM NAME="requestForm1" ID="requestForm1" METHOD="post" ACTION="http://benturner.com/streeteyes/acceptrequest.php">
+<INPUT TYPE="hidden" NAME="requestHidden" VALUE=1 />
+<INPUT TYPE="hidden" NAME="acceptedBy" VALUE=1 />
+<button type="submit" data-theme="b" name="submit1" data-mini="true" class="submitRequest" data-inline="true" value="submit-value" ID="acceptRequest1">accept &amp; go live</button>
+</FORM>
 
 </DIV> <!-- /request -->
 
@@ -198,7 +206,13 @@ Attach photo:<BR />
 
 <FORM NAME="viewForm" ID="viewForm" METHOD="post" ACTION="http://benturner.com/streeteyes/newviewrequest.php">
 
-<div id="map_canvas" style="width:180px; height:180px"></div>
+<div id="map_canvas" style="width:100%; height:180px"></div>
+
+<div data-role="fieldcontain">
+Change location?<BR />
+<input type="search" name="viewLocation" id="viewLocation" value="" SIZE=50 /><BR />
+<a href="search.html" data-role="button" data-transition="fade" CLASS="updateButton" data-inline="true" data-theme="a" STYLE="font-size: 8pt;">look up location</a>
+</div>
 
 <div data-role="fieldcontain">
 Request broadcast from which user?<BR />
@@ -208,12 +222,6 @@ Request broadcast from which user?<BR />
 <div data-role="fieldcontain">
 What do you want to get eyes on?<BR />
 <input type="text" name="viewWhat" id="viewWhat" value="" SIZE=30 />
-</div>
-<div data-role="fieldcontain">
-Change location?<BR />
-<input type="search" name="viewLocation" id="viewLocation" value="" SIZE=50 /><BR />
-<a href="search.html" data-role="button" data-transition="fade" CLASS="updateButton" data-inline="true" data-theme="a" STYLE="font-size: 8pt;">look up location</a>
-
 </div>
 
 <div data-role="fieldcontain">

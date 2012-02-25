@@ -20,19 +20,19 @@
             'Device PhoneGap: ' + device.phonegap + ', ' + 
             'Device Platform: ' + device.platform + ', ' + 
             'Device UUID: '     + device.uuid     + ', ' + 
-            'Device Version: '  + device.version  + ', ';
+            'Device Version: '  + device.version  + ', '; //
     	console.log(elementDeviceProperties);
     	$.mobile.loadPage("http://benturner.com/streeteyes/postgeoloc.php?lat=" + lat + "&lon=" + lon + "&id=1", {
         	reloadPage : true
         }); 
         $("#requestsDiv").load("http://benturner.com/streeteyes/requests.php");
-        $.mobile.loadPage("http://benturner.com/streeteyes/requests.php",
+        /*$.mobile.loadPage("http://benturner.com/streeteyes/requests.php",
         		{
         			pageContainer: $("#requestsDiv")
         		}
-        );
-        var options = { frequency: 5000, timeout: 10000 };
-        navigator.geolocation.watchPosition(onSuccessWatch, onError, options);
+        );*/
+        //var options = { frequency: 5000, timeout: 10000 };
+        //navigator.geolocation.watchPosition(onSuccessWatch, onError, options);
 	};
 		
         function initialize(lat_map, lon_map) {
@@ -70,15 +70,16 @@
             + position.coords.latitude+ ',' +position.coords.longitude +
             '&zoom=14&size=100x100&maptype=roadmap&markers=color:blue%7Clabel:U%7C' +
             position.coords.latitude+ ',' +position.coords.longitude +
-            '&key=AIzaSyBxSfRY29fktTa2m21a9vKumb3UfUo-4eI&sensor=true" height="100" width="100" align="left" border="1" />' +
-            'Latitude: '           + position.coords.latitude              + '<br />' +
+            '&key=AIzaSyBxSfRY29fktTa2m21a9vKumb3UfUo-4eI&sensor=true" height="100" width="100" align="left" border="1" />';
+            
+            console.log('Latitude: '           + position.coords.latitude              + '<br />' +
             'Longitude: '          + position.coords.longitude             + '<br />' +
 			'Altitude: '           + position.coords.altitude              + '<br />' +
 			'Accuracy: '           + position.coords.accuracy              + '<br />' +
 			'Altitude Accuracy: '  + position.coords.altitudeAccuracy      + '<br />' +
 			'Heading: '            + position.coords.heading               + '<br />' +
 			'Speed: '              + position.coords.speed                 + '<br />' +
-			'Timestamp: '          + new Date(position.timestamp)          + '<br />';
+			'Timestamp: '          + new Date(position.timestamp)          + '<br />');
             initialize(position.coords.latitude, position.coords.longitude);
         }
         
