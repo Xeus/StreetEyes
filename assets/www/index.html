@@ -4,9 +4,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <title>StreetEyes</title>
-	<link rel="stylesheet" href="jquery.mobile/jquery.mobile-1.0.css" type="text/css"/>
+	<link rel="stylesheet" href="jquery.mobile/jquery.mobile-1.1.0-rc.1.min.css" type="text/css"/>
     <link rel="stylesheet" href="css/pgandjqm-style-override.css" type="text/css"/>
-    <script type="text/javascript" charset="utf-8" src="jquery.mobile/jquery-1.6.4.min"></script>
+    <script type="text/javascript" charset="utf-8" src="jquery.mobile/jquery-1.7.1.min"></script>
     <script type="text/javascript" charset="utf-8" src="js/main.js"></script>
     <script type="text/javascript" charset="utf-8">
     
@@ -18,8 +18,8 @@
     });
     
     </script>
-    <script type="text/javascript" charset="utf-8" src="jquery.mobile/jquery.mobile-1.0.js"></script>
-	<script type="text/javascript" charset="utf-8" src="js/phonegap-1.3.0.js"></script>
+    <script type="text/javascript" charset="utf-8" src="jquery.mobile/jquery.mobile-1.1.0-rc.1.min"></script>
+	<script type="text/javascript" charset="utf-8" src="js/phonegap-1.4.1.js"></script>
 	<script type="text/javascript" charset="utf-8" src="js/custom.js"></script>
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDHwAJbB8jkEMvSkZpGBDxSB1fK5MpGfNQ&sensor=false"></script>
 	<style type="text/css">
@@ -41,17 +41,16 @@
 
 <DIV data-role="header" data-theme="a" data-position="fixed">
 
-<TABLE BORDER=0 WIDTH="100%"><TR><TD VALIGN="middle" CLASS="title">
-<a href="./index.html" data-role="button" data-icon="home" data-theme="a" data-inline="true" data-iconpos="notext" style="vertical-align: -15%;">Home</A>
-<A HREF="./index.html"><B>StreetEyes</B></A>
-</TD><TD VALIGN="middle" ALIGN="right">
-<a href="#search" data-role="button" data-icon="search" data-theme="e" data-inline="true" data-iconpos="notext" style="vertical-align: middle;">Search</a>
-<a href="#settings" data-role="button" data-icon="gear" data-theme="e" data-inline="true" data-iconpos="notext" style="vertical-align: middle;">Settings</a>
-</TD></TR></TABLE>
+<TABLE BORDER=0 WIDTH="100%" CELLPADDING=0 CELLSPACING=0><TR>
+<TD VALIGN="middle" CLASS="title"><a href="./index.html"
+data-role="button" data-icon="home" data-theme="a" data-inline="true" data-iconpos="notext">Home</A></TD>
+<TD ALIGN="left"><A HREF="./index.html"><B>StreetEyes</B></A></TD>
+<TD VALIGN="middle" ALIGN="right"><a href="#search" data-role="button" data-mini="true" data-icon="search" data-theme="e" data-inline="true" data-iconpos="notext" style="vertical-align: middle;" data-mini="true">Search</a>
+<a href="#settings" data-role="button" data-icon="gear" data-theme="e" data-inline="true" data-iconpos="notext" style="vertical-align: middle;">Settings</a><a href="#profile" data-role="button" data-theme="e" data-mini="true" data-inline="true" style="vertical-align: middle;">Profile</a></TD>
+</TR></TABLE>
 
-<div data-role="navbar" class="ui-body-a">
+<div data-role="navbar" class="ui-body-a" data-mini="true">
     <ul>
-        <li><a href="#profile">Your Profile</a></li>
         <li><a href="#map_page" ID="link_map">Map</a></li>
         <LI><A HREF="#broadcaster" class="ui-btn-active">Broadcast</A></LI>
         <LI><A HREF="#viewer" ID="link_viewer">Request</A></LI>
