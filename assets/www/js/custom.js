@@ -7,7 +7,7 @@
 
 	var watchID = null;
 	var map = null;
-	var map2 = null;
+	// var map2 = null;
 	var position = null;
    		
     var onDeviceReady = function() {
@@ -43,12 +43,12 @@
               zoom: 16,
               mapTypeId: google.maps.MapTypeId.ROADMAP
             };
-            map2 = new google.maps.Map(document.getElementById("map_canvas2"), myOptions);
+            /* map2 = new google.maps.Map(document.getElementById("map_canvas2"), myOptions);
             var marker2 = new google.maps.Marker({
                 position: myLatlng_map,
                 map: map2,
                 title:"NYU-ITP"
-            });
+            }); */
             
             map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
             var marker = new google.maps.Marker({
@@ -68,9 +68,9 @@
             var element = document.getElementById('geolocation');
             element.innerHTML = '<img src="http://maps.google.com/maps/api/staticmap?center='
             + position.coords.latitude+ ',' +position.coords.longitude +
-            '&zoom=14&size=100x100&maptype=roadmap&markers=color:blue%7Clabel:U%7C' +
+            '&zoom=14&size=200x100&maptype=roadmap&markers=color:blue%7Clabel:U%7C' +
             position.coords.latitude+ ',' +position.coords.longitude +
-            '&key=AIzaSyBxSfRY29fktTa2m21a9vKumb3UfUo-4eI&sensor=true" height="100" width="100" align="left" border="1" />';
+            '&key=AIzaSyBxSfRY29fktTa2m21a9vKumb3UfUo-4eI&sensor=true" height="100" width="200" align="left" border="1" />';
             
             console.log('Latitude: '           + position.coords.latitude              + '<br />' +
             'Longitude: '          + position.coords.longitude             + '<br />' +
@@ -86,10 +86,10 @@
         function onSuccessWatch(position) {
         	console.log("onSuccessWatch() called.");
         	google.maps.event.trigger(map_canvas, 'resize');
-        	google.maps.event.trigger(map_canvas2, 'resize');
+        	// google.maps.event.trigger(map_canvas2, 'resize');
         	var myLatlng_map = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
         	map.setCenter(myLatlng_map);
-        	map2.setCenter(myLatlng_map);
+        	// map2.setCenter(myLatlng_map);
         }
 
         if (lat == '') {
@@ -165,24 +165,4 @@
 			console.log("onFail() called.");
       		alert('Failed because: ' + message);
     	}
-    	
-    	// alert dialog dismissed
-        function alertDismissed() {
-        	console.log("alertDismissed() called.");
-            // do something
-        }
-
-        // Show a custom alert
-        //
-        function showAlert() {
-        	console.log("showAlert() called.");
-            navigator.notification.alert(
-                'You are the winner!',  // message
-                alertDismissed,         // callback
-                'Game Over',            // title
-                'Done'                  // buttonName
-            );
-        }
-        
-        
         
