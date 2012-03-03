@@ -22,10 +22,8 @@
             'Device UUID: '     + device.uuid     + ', ' + 
             'Device Version: '  + device.version  + ', '; //
     	console.log(elementDeviceProperties);
-    	$.mobile.loadPage("http://benturner.com/streeteyes/postgeoloc.php?lat=" + lat + "&lon=" + lon + "&id=1", {
-        	reloadPage : true
-        }); 
         $("#requestsDiv").load("http://benturner.com/streeteyes/requests.php");
+        $("#lastUpdate").load("http://benturner.com/streeteyes/lastupdate.php");
         /*$.mobile.loadPage("http://benturner.com/streeteyes/requests.php",
         		{
         			pageContainer: $("#requestsDiv")
@@ -81,6 +79,10 @@
 			'Speed: '              + position.coords.speed                 + '<br />' +
 			'Timestamp: '          + new Date(position.timestamp)          + '<br />');
             initialize(position.coords.latitude, position.coords.longitude);
+            
+            $.mobile.loadPage("http://benturner.com/streeteyes/postgeoloc.php?lat=" + position.coords.latitude + "&lon=" + position.coords.longitude + "&id=1", {
+            	reloadPage : true
+            }); 
         }
         
         function onSuccessWatch(position) {
@@ -97,6 +99,28 @@
         	var lon = -73.993902;
         }
 
+        // info box on pin
+        var contentString = '<div id="mapProfile">'+
+        '<img src="img/profiles/1.jpg" img align="left" width="40px" heigh="40px"/>'+
+        '<h3 id="mapHeading">Ben Turner</h3>'+
+        '<div id="mapContent">'+
+        '<p>3 hrs ago: At ITP, not too crowded</p>'+
+        '<button type="button" onclick="#">Request Eyes</button>'+
+        '</div>'+
+        '</div>';
+     
+    	var infowindow = new google.maps.InfoWindow({
+        	content: contentString
+    		});
+    	// info box on pin
+        
+        google.maps.event.addListener(marker, 'click', function() {
+        	infowindow.open(map,marker);
+        	});
+        
+        
+        
+        
     	var pictureSource;   // picture source
     	var destinationType; // sets the format of returned value 
 

@@ -1,0 +1,31 @@
+	H1,H3,H4 { display: inline; }
+	#header ul li { text-wrap: none; font-size: 8pt; font-family: Arial; }
+	#updateButton { font-size: 8pt; }
+	.request { padding: 5px; margin-bottom: 10px; }
+	button { font-size: 8pt; }
+	.title A,B { letter-spacing: -1px; font-size: 20pt; text-decoration: none; color: white; }
+	.submitRequest { font-size: 8pt; }
+	.input {
+  margin: 5px 0;
+  background: white;
+  float: left;
+  clear: both;
+}
+.labelInput span {
+  position: absolute;
+  padding: 5px;
+  margin-left: 3px;
+  color: #999;
+}
+.labelInput input, .labelInput textarea, .labelInput select {
+  position: relative;
+  margin: 0;
+  border-width: 1px;
+  padding: 6px;
+  background: transparent;
+  font: inherit;
+}
+/* Hack to remove Safari's extra padding. Remove if you don't care about pixel-perfection. */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    .labelInput input, .labelInput textarea, .labelInput select { padding: 4px; }
+}

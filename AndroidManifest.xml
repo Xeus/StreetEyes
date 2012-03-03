@@ -35,7 +35,7 @@
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
-    <application android:debuggable="true" android:icon="@drawable/ic_launcher"
+    <application android:debuggable="true" android:icon="@drawable/streeteyesicon"
         android:label="@string/app_name" >
         <activity android:configChanges="orientation|keyboardHidden" android:name=".StreetEyesActivity"
             android:label="@string/app_name" >

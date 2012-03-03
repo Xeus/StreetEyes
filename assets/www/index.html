@@ -1,293 +1,330 @@
 <!DOCTYPE HTML>
 <html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-    <title>StreetEyes</title>
-	<link rel="stylesheet" href="jquery.mobile/jquery.mobile-1.1.0-rc.1.min.css" type="text/css"/>
-    <link rel="stylesheet" href="css/pgandjqm-style-override.css" type="text/css"/>
-    <script type="text/javascript" charset="utf-8" src="jquery.mobile/jquery-1.7.1.min"></script>
-    <script type="text/javascript" charset="utf-8" src="js/main.js"></script>
-    <script type="text/javascript" charset="utf-8">
-    
-    $(document).bind("mobileinit", function() {
-        // Make your jQuery Mobile framework configuration changes here!
-        $.support.cors = true;
-        $.mobile.allowCrossDomainPages = true;
-        $.mobile.defaultPageTransition = 'none'; // docs say defaultTransition but are wrong!
-    }); //
-    
-    </script>
-    <script type="text/javascript" charset="utf-8" src="jquery.mobile/jquery.mobile-1.1.0-rc.1.min"></script>
-	<script type="text/javascript" charset="utf-8" src="js/phonegap-1.4.1.js"></script>
-	<script type="text/javascript" charset="utf-8" src="js/custom.js"></script>
-    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDHwAJbB8jkEMvSkZpGBDxSB1fK5MpGfNQ&sensor=false"></script>
-	<style type="text/css">
-        H1, H3, H4 { display: inline; }
-        #header ul li { text-wrap: none; font-size: 8pt; font-family: Arial;}
-        #updateButton { font-size: 8pt;}
-        .request { padding: 5px; margin-bottom: 10px;}
-        button { font-size: 8pt; }
-        .title A, B { letter-spacing: -1px; font-size: 20pt; text-decoration: none; color: white;}
-        .submitRequest { font-size: 8pt; }
-	</style>
-  </head>
-  
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<title>StreetEyes</title>
+<link rel="stylesheet" href="jquery.mobile/jquery.mobile-1.1.0-rc.1.min.css" type="text/css" />
+<link rel="stylesheet" href="css/pgandjqm-style-override.css" type="text/css" />
+<link rel="stylesheet" href="css/custom.css" type="text/css" />
+<script type="text/javascript" charset="utf-8" src="jquery.mobile/jquery-1.7.1.min"></script>
+<!-- <script type="text/javascript" charset="utf-8" src="js/main.js"></script> -->
+<script type="text/javascript" charset="utf-8">
+	$(document).bind("mobileinit", function() {
+		// Make your jQuery Mobile framework configuration changes here!
+		$.support.cors = true;
+		$.mobile.allowCrossDomainPages = true;
+		$.mobile.defaultPageTransition = 'none'; // docs say defaultTransition but are wrong!
+	}); //
+</script>
+<script type="text/javascript" charset="utf-8" src="jquery.mobile/jquery.mobile-1.1.0-rc.1.min"></script>
+<script type="text/javascript" charset="utf-8" src="js/phonegap-1.4.1.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/infrontof.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/custom.js"></script>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDHwAJbB8jkEMvSkZpGBDxSB1fK5MpGfNQ&sensor=false"></script>
+</head>
+
 <body>
 
+	<div data-role="page" id="broadcaster">
+
+		<DIV data-role="header" data-theme="a" data-position="fixed">
+
+			<TABLE BORDER=0 WIDTH="100%" CELLPADDING=0 CELLSPACING=0>
+				<TR>
+					<TD CLASS="title" ALIGN="left"> <A HREF="./index.html"><B>StreetEyes</B></A></TD>
+					<TD VALIGN="middle" ALIGN="right"><a href="#search"
+						data-role="button" data-mini="true" data-icon="search"
+						data-theme="e" data-inline="true" data-iconpos="notext"
+						style="vertical-align: middle;" data-mini="true">Search</a> <a
+						href="#settings" data-role="button" data-icon="gear"
+						data-theme="e" data-inline="true" data-iconpos="notext"
+						style="vertical-align: middle;">Settings</a></TD>
+				</TR>
+			</TABLE>
+
+			<div data-role="navbar" class="ui-body-a" data-mini="true">
+				<ul>
+					<LI><A HREF="#broadcaster" class="ui-btn-active" data-theme="e">Broadcast Now!</A></LI>
+					<li><a href="#streams" ID="link_viewer" data-theme="e">View Streams</a></li>
+				</ul>
+			</div>
+			<!-- /navbar -->
+
+		</DIV>
+		<!-- /header -->
+
+		<div data-role="content" data-theme="a">
+			<!--  insert external div -->
+			<div id="lastUpdate"></div><BR />
+
+			<p id="geolocation">Finding geolocation...</p>
+
+			<div data-role="fieldcontain">
+			
+			<label class="labelInput">
+			<span>What are you seeing?</span><input type="text" name="update" id="update" data-theme="a" value="" />
+			</label>
+			<BR />
+			<label class="labelInput">
+			<span>Your Ustream URL:</span><input type="text" name="ustream" id="ustream" data-theme="a" value="" />
+			</label>
+			<BR />
+			Attach photo:<BR /><small>
+			<button onclick="capturePhoto();" class="camera" data-mini="true">CapturePhoto</button>
+					<button onclick="getPhoto(pictureSource.PHOTOLIBRARY);"
+						class="camera" data-mini="true">Gallery</button>
+					<!-- <button onclick="capturePhotoEdit();" class="camera">Capture
+						Editable Photo</button>
+					<button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);"
+						class="camera">From Photo Album</button> <img
+					style="display: none; width: 60px; height: 60px;" id="smallImage"
+					src="" /> <img style="display: none;" id="largeImage" src="" /> --><BR />
+				</small>
+			</div>
+
+			<CENTER>
+				<a href="buttons-types.html" data-role="button"
+					data-transition="fade" CLASS="updateButton" data-inline="true"
+					data-theme="b">send update</a>
+			</CENTER>
+
+		</DIV>
+		<!-- /content -->
+
+	</div>
+	<!-- /page -->
+
+
+
+
+
+
+
+
+	<div data-role="page" id="streams" data-theme="a">
+
+		<DIV data-role="header" data-theme="a" data-position="fixed">
+
+			<TABLE BORDER=0 WIDTH="100%" CELLPADDING=0 CELLSPACING=0>
+				<TR>
+					<TD CLASS="title" ALIGN="left"> <A HREF="./index.html"><B>StreetEyes</B></A></TD>
+					<TD VALIGN="middle" ALIGN="right"><a href="#search"
+						data-role="button" data-mini="true" data-icon="search"
+						data-theme="e" data-inline="true" data-iconpos="notext"
+						style="vertical-align: middle;" data-mini="true">Search</a> <a
+						href="#settings" data-role="button" data-icon="gear"
+						data-theme="e" data-inline="true" data-iconpos="notext"
+						style="vertical-align: middle;">Settings</a></TD>
+				</TR>
+			</TABLE>
+
+			<div data-role="navbar" class="ui-body-a" data-mini="true">
+				<ul>
+					<LI><A HREF="#broadcaster"
+						data-theme="e">Broadcast Now!</A></LI>
+					<li><a href="#streams" ID="link_viewer" data-theme="e" class="ui-btn-active">View Streams</a></li>
+				</ul>
+			</div>
+			<!-- /navbar -->
+
+		</DIV>
+		<!-- /header -->
 
+		<div data-role="content">
+		
+<div id="tabs">
+	<ul>
+		<li><a href="#tabs-1">Requests</a></li>
+		<li><a href="#tabs-2">Public</a></li>
+		<li><a href="#tabs-2">Active</a></li>
+	</ul>
+	<div id="tabs-1">
+		<DIV ID="requestsDiv"></DIV>
+	</div>
+	<div id="tabs-2">
+		No public streams yet.
+	</div>
+	<div id="tabs-3">
+		Active streams here.
+	</div>
+</div>		
 
-<div data-role="page" id="broadcaster">
+			
 
-<DIV data-role="header" data-theme="a" data-position="fixed">
+		</DIV> <!-- end content-page -->
 
-<TABLE BORDER=0 WIDTH="100%" CELLPADDING=0 CELLSPACING=0><TR>
-<TD CLASS="title" ALIGN="left"><A HREF="./index.html"><B>StreetEyes</B></A></TD>
-<TD VALIGN="middle" ALIGN="right"><a href="#search" data-role="button" data-mini="true" data-icon="search" data-theme="e" data-inline="true" data-iconpos="notext" style="vertical-align: middle;" data-mini="true">Search</a>
-<a href="#settings" data-role="button" data-icon="gear" data-theme="e" data-inline="true" data-iconpos="notext" style="vertical-align: middle;">Settings</a></TD>
-</TR></TABLE>
+	</div>
+	<!-- /page -->
+
+
 
-<div data-role="navbar" class="ui-body-a" data-mini="true">
-    <ul>
-        <LI><A HREF="#broadcaster" class="ui-btn-active" data-theme="e">Broadcast!</A></LI>
-        <LI><A HREF="#request" ID="link_viewer" data-theme="e">Request</A></LI>
-        <li><a href="#beacons" ID="link_map" data-theme="e">Beacon List</a></li>
-    </ul>
-</div><!-- /navbar --> 
+
+
 
-</DIV> <!-- /header -->
 
-<div data-role="content" data-theme="a">
 
-YOUR RECENT UPDATES:<BR>
-15:21EST, 11 Feb 12 :: Photo from the ITP workshop, not too crowded. [more details]<BR />
+	<div data-role="page" id="settings" data-theme="a">
 
-<p id="geolocation">Finding geolocation...</p>
-
-<div data-role="fieldcontain">
-What are you seeing?<BR />
-<input type="text" name="update" id="update" data-theme="a" value="" />
-<BR />
-Your ustream URL:<BR />
-<input type="text" name="ustream" id="ustream" data-theme="a" value="" />
-<BR />
-Attach photo:<BR />
-<small>
-<button onclick="capturePhoto();" class="camera">Capture Photo</button>
-    <button onclick="capturePhotoEdit();" class="camera">Capture Editable Photo</button>
-    <button onclick="getPhoto(pictureSource.PHOTOLIBRARY);" class="camera">From Photo Library</button>
-    <button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);" class="camera">From Photo Album</button>
-    <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
-    <img style="display:none;" id="largeImage" src="" />
-    <BR /></small>
-</div>
-
-<CENTER><a href="buttons-types.html" data-role="button" data-transition="fade" CLASS="updateButton" data-inline="true" data-theme="b">send update</a></CENTER>
-
-</DIV> <!-- /content -->
-
-</div> <!-- /page -->
-
-
-
-
-<div data-role="page" id="request" data-theme="a">
-
-<DIV data-role="header" data-theme="a" data-position="fixed">
-
-<TABLE BORDER=0 WIDTH="100%" CELLPADDING=0 CELLSPACING=0><TR>
-<TD CLASS="title" ALIGN="left"><A HREF="./index.html"><B>StreetEyes</B></A></TD>
-<TD VALIGN="middle" ALIGN="right"><a href="#search" data-role="button" data-mini="true" data-icon="search" data-theme="e" data-inline="true" data-iconpos="notext" style="vertical-align: middle;" data-mini="true">Search</a>
-<a href="#settings" data-role="button" data-icon="gear" data-theme="e" data-inline="true" data-iconpos="notext" style="vertical-align: middle;">Settings</a></TD>
-</TR></TABLE>
-
-<div data-role="navbar" class="ui-body-a" data-mini="true">
-    <ul>
-        <LI><A HREF="#broadcaster" data-theme="e">Broadcast!</A></LI>
-        <LI><A HREF="#request" class="ui-btn-active" ID="link_viewer" data-theme="e">Request</A></LI>
-        <li><a href="#beacons" ID="link_map" data-theme="e">Beacon List</a></li>
-    </ul>
-</div><!-- /navbar --> 
-
-</DIV> <!-- /header -->
-
-<div data-role="content">
-
-<FORM NAME="viewForm" ID="viewForm" METHOD="post" ACTION="http://benturner.com/streeteyes/newviewrequest.php">
-
-<div id="map_canvas" style="width:90%; height:250px"></div>
-
-<div data-role="fieldcontain">
-Change location?<BR />
-<input type="search" name="viewLocation" id="viewLocation" value="" SIZE=50 />
-<a href="#search" data-role="button" data-transition="fade" CLASS="updateButton" data-inline="true" data-theme="a" STYLE="font-size: 8pt;">look up location</a>
-</div>
-
-<div data-role="fieldcontain">
-Request broadcast from which user?<BR />
-<input type="text" name="viewUser" id="viewUser" value="" SIZE=30 />
-</div>
-
-<div data-role="fieldcontain">
-What do you want to get eyes on?<BR />
-<input type="text" name="viewWhat" id="viewWhat" value="" SIZE=30 />
-</div>
-
-<div data-role="fieldcontain">
-What multimedia do you want broadcasted?
-        <fieldset data-role="controlgroup">
-          <input type="checkbox" name="viewMedia" id="viewMedia1" class="custom" />
-          <label for="viewMedia1">Text updates/tweets/SMS</label>
-
-          <input type="checkbox" name="viewMedia" id="viewMedia2" class="custom" />
-          <label for="viewMedia2">Live video</label>
-          
-          <input type="checkbox" name="viewMedia" id="viewMedia3" class="custom" />
-          <label for="viewMedia3">Photos</label>
-
-          <input type="checkbox" name="viewMedia" id="viewMedia4" class="custom" />
-          <label for="viewMedia4">Recorded video</label>
-          </fieldset>
-</div>
-
-<CENTER><INPUT type="submit" id="newViewRequest" data-role="button" data-transition="fade" CLASS="updateButton" data-inline="true" data-theme="b" VALUE="send request"></CENTER>
-
-</FORM>
-
-</DIV> <!-- end content-page -->
-
-</div> <!-- /page -->
-
-
-
-
-<div data-role="page" id="beacons" data-theme="a">
-
-<DIV data-role="header" data-theme="a" data-position="fixed">
-
-<TABLE BORDER=0 WIDTH="100%" CELLPADDING=0 CELLSPACING=0><TR>
-<TD CLASS="title" ALIGN="left"><A HREF="./index.html"><B>StreetEyes</B></A></TD>
-<TD VALIGN="middle" ALIGN="right"><a href="#search" data-role="button" data-mini="true" data-icon="search" data-theme="e" data-inline="true" data-iconpos="notext" style="vertical-align: middle;" data-mini="true">Search</a>
-<a href="#settings" data-role="button" data-icon="gear" data-theme="e" data-inline="true" data-iconpos="notext" style="vertical-align: middle;">Settings</a></TD>
-</TR></TABLE>
-
-<div data-role="navbar" class="ui-body-a" data-mini="true">
-    <ul>
-        <LI><A HREF="#broadcaster" data-theme="e">Broadcast!</A></LI>
-        <LI><A HREF="#request" ID="link_viewer" data-theme="e">Request</A></LI>
-        <li><a href="#beacons" class="ui-btn-active" ID="link_map" data-theme="e">Beacon List</a></li>
-    </ul>
-</div><!-- /navbar --> 
-
-</DIV> <!-- /header -->
-
-<div data-role="content">
-
-<DIV ID="requestsDiv"></DIV>
-
-</DIV> <!-- end content-page -->
-
-</div> <!-- /page -->
-
-
-
-
-
-
-
-
-<div data-role="page" id="settings" data-theme="a">
-
-<DIV data-role="header" data-theme="a" data-position="fixed">
-
-<TABLE BORDER=0 WIDTH="100%" CELLPADDING=0 CELLSPACING=0><TR>
-<TD CLASS="title" ALIGN="left"><A HREF="./index.html"><B>StreetEyes</B></A></TD>
-<TD VALIGN="middle" ALIGN="right"><a href="#search" data-role="button" data-mini="true" data-icon="search" data-theme="e" data-inline="true" data-iconpos="notext" style="vertical-align: middle;" data-mini="true">Search</a>
-<a href="#settings" data-role="button" data-icon="gear" data-theme="e" data-inline="true" data-iconpos="notext" style="vertical-align: middle;">Settings</a></TD>
-</TR></TABLE>
-
-<div data-role="navbar" class="ui-body-a" data-mini="true">
-    <ul>
-        <LI><A HREF="#broadcaster" data-theme="e">Broadcast!</A></LI>
-        <LI><A HREF="#request" ID="link_viewer" data-theme="e">Request</A></LI>
-        <li><a href="#beacons" ID="link_map" data-theme="e">Beacon List</a></li>
-    </ul>
-</div><!-- /navbar --> 
-
-</DIV> <!-- /header -->
-
-<div data-role="content">
-
-<H3>YOUR PROFILE</H3><BR />
-
-Your real name/pseudonym?<BR />
-<input type="text" name="profileName" id="profileName" data-theme="a" value="" />
-<BR />
-
-Your bio?<BR />
-<textarea name="profileBio" id="profileBio" data-theme="a" rows=30 cols=3></textarea>
-<BR />
-
-<div data-role="fieldcontain">
-<legend>App Settings</legend>
-        <fieldset data-role="controlgroup">
-          <input type="checkbox" name="checkbox-1a" id="checkbox-1a" class="custom" />
-          <label for="checkbox-1a">Text updates/tweets/SMS</label>
-
-          <input type="checkbox" name="checkbox-2a" id="checkbox-2a" class="custom" />
-          <label for="checkbox-2a">Live video</label>
-          
-          <input type="checkbox" name="checkbox-3a" id="checkbox-3a" class="custom" />
-          <label for="checkbox-3a">Photos</label>
-
-          <input type="checkbox" name="checkbox-4a" id="checkbox-4a" class="custom" />
-          <label for="checkbox-4a">Recorded video</label>
-          </fieldset>
-      </div>
-
-<CENTER><a href="buttons-types.html" data-role="button" data-transition="fade" CLASS="updateButton" data-inline="true" data-theme="b">update settings</a></CENTER>
-
-</DIV> <!-- end content-page -->
-
-</div> <!-- /page -->
-
-
-
-
-
-<div data-role="page" id="search" data-theme="a">
-
-<DIV data-role="header" data-theme="a" data-position="fixed">
-
-<TABLE BORDER=0 WIDTH="100%" CELLPADDING=0 CELLSPACING=0><TR>
-<TD CLASS="title" ALIGN="left"><A HREF="./index.html"><B>StreetEyes</B></A></TD>
-<TD VALIGN="middle" ALIGN="right"><a href="#search" data-role="button" data-mini="true" data-icon="search" data-theme="e" data-inline="true" data-iconpos="notext" style="vertical-align: middle;" data-mini="true">Search</a>
-<a href="#settings" data-role="button" data-icon="gear" data-theme="e" data-inline="true" data-iconpos="notext" style="vertical-align: middle;">Settings</a></TD>
-</TR></TABLE>
-
-<div data-role="navbar" class="ui-body-a" data-mini="true">
-    <ul>
-        <LI><A HREF="#broadcaster" data-theme="e">Broadcast!</A></LI>
-        <LI><A HREF="#request" ID="link_viewer" data-theme="e">Request</A></LI>
-        <li><a href="#beacons" ID="link_map" data-theme="e">Beacon List</a></li>
-    </ul>
-</div><!-- /navbar --> 
-
-</DIV> <!-- /header -->
-
-<div data-role="content">
-
-<H3>Search Events</H3><BR />
-
-<div data-role="fieldcontain">
-    <label for="search">Search Input:</label><BR />
-    <input type="search" name="password" id="search" value="" /><BR />
-    <CENTER><input type="submit" value="search" data-theme="b" data-inline="true" /></CENTER>
-</div>
-
-</DIV> <!-- end content-page -->
-
-</div> <!-- /page -->
+		<DIV data-role="header" data-theme="a" data-position="fixed">
+
+			<TABLE BORDER=0 WIDTH="100%" CELLPADDING=0 CELLSPACING=0>
+				<TR>
+					<TD CLASS="title" ALIGN="left"> <A HREF="./index.html"><B>StreetEyes</B></A></TD>
+					<TD VALIGN="middle" ALIGN="right"><a href="#search"
+						data-role="button" data-mini="true" data-icon="search"
+						data-theme="e" data-inline="true" data-iconpos="notext"
+						style="vertical-align: middle;" data-mini="true">Search</a> <a
+						href="#settings" data-role="button" data-icon="gear"
+						data-theme="e" data-inline="true" data-iconpos="notext"
+						style="vertical-align: middle;">Settings</a></TD>
+				</TR>
+			</TABLE>
+
+			<div data-role="navbar" class="ui-body-a" data-mini="true">
+				<ul>
+					<LI><A HREF="#broadcaster" data-theme="e">Broadcast Now!</A></LI>
+					<li><a href="#streams" ID="link_viewer" data-theme="e">View Streams</a></li>
+				</ul>
+			</div>
+			<!-- /navbar -->
+
+		</DIV>
+		<!-- /header -->
+
+		<div data-role="content">
+
+			<H3>YOUR PROFILE</H3>
+			<BR /> Your real name/pseudonym?<BR /> <input type="text"
+				name="profileName" id="profileName" data-theme="a" value="" /> <BR />
+
+			Your bio?<BR />
+			<textarea name="profileBio" id="profileBio" data-theme="a" rows=3
+				cols=30></textarea>
+			<BR />
+
+			<div data-role="fieldcontain">
+				<legend>App Settings</legend>
+				<fieldset data-role="controlgroup">
+					<input type="checkbox" name="checkbox-1a" id="checkbox-1a"
+						class="custom" /> <label for="checkbox-1a">Text
+						updates/tweets/SMS</label> <input type="checkbox" name="checkbox-2a"
+						id="checkbox-2a" class="custom" /> <label for="checkbox-2a">Live
+						video</label> <input type="checkbox" name="checkbox-3a" id="checkbox-3a"
+						class="custom" /> <label for="checkbox-3a">Photos</label> <input
+						type="checkbox" name="checkbox-4a" id="checkbox-4a" class="custom" />
+					<label for="checkbox-4a">Recorded video</label>
+				</fieldset>
+			</div>
+
+			<CENTER>
+				<a href="buttons-types.html" data-role="button"
+					data-transition="fade" CLASS="updateButton" data-inline="true"
+					data-theme="b">update settings</a>
+			</CENTER>
+
+		</DIV>
+		<!-- end content-page -->
+
+	</div>
+	<!-- /page -->
+
+
+
+
+
+	<div data-role="page" id="search" data-theme="a">
+
+		<DIV data-role="header" data-theme="a" data-position="fixed">
+
+			<TABLE BORDER=0 WIDTH="100%" CELLPADDING=0 CELLSPACING=0>
+				<TR>
+					<TD CLASS="title" ALIGN="left"> <A HREF="./index.html"><B>StreetEyes</B></A></TD>
+					<TD VALIGN="middle" ALIGN="right"><a href="#search"
+						data-role="button" data-mini="true" data-icon="search"
+						data-theme="e" data-inline="true" data-iconpos="notext"
+						style="vertical-align: middle;" data-mini="true">Search</a> <a
+						href="#settings" data-role="button" data-icon="gear"
+						data-theme="e" data-inline="true" data-iconpos="notext"
+						style="vertical-align: middle;">Settings</a></TD>
+				</TR>
+			</TABLE>
+
+			<div data-role="navbar" class="ui-body-a" data-mini="true">
+				<ul>
+					<LI><A HREF="#broadcaster" data-theme="e">Broadcast Now!</A></LI>
+					<li><a href="#streams" ID="link_viewer" data-theme="e">View Streams</a></li>
+				</ul>
+			</div>
+			<!-- /navbar -->
+
+		</DIV>
+		<!-- /header -->
+
+		<div data-role="content">
+
+			<FORM NAME="viewForm" ID="viewForm" METHOD="post"
+				ACTION="http://benturner.com/streeteyes/newviewrequest.php">
+				<H3>Location of Active Eyes</H3><BR />
+				<div id="map_canvas" style="width: 90%; height: 250px"></div>
+
+				<div data-role="fieldcontain">
+					Change location?<BR /> <input type="search" name="viewLocation"
+						id="viewLocation" value="" SIZE=50 /> <a href="#search"
+						data-role="button" data-transition="fade" CLASS="updateButton"
+						data-inline="true" data-theme="a" STYLE="font-size: 8pt;">look
+						up location</a>
+				</div>
+
+				<div data-role="fieldcontain">
+					Request broadcast from which user?<BR /> <input type="text"
+						name="viewUser" id="viewUser" value="" SIZE=30 />
+				</div>
+
+				<div data-role="fieldcontain">
+					What do you want to get eyes on?<BR /> <input type="text"
+						name="viewWhat" id="viewWhat" value="" SIZE=30 />
+				</div>
+
+				<div data-role="fieldcontain">
+					What multimedia do you want broadcasted?
+					<fieldset data-role="controlgroup">
+						<input type="checkbox" name="viewMedia" id="viewMedia1"
+							class="custom" /> <label for="viewMedia1">Text
+							updates/tweets/SMS</label> <input type="checkbox" name="viewMedia"
+							id="viewMedia2" class="custom" /> <label for="viewMedia2">Live
+							video</label> <input type="checkbox" name="viewMedia" id="viewMedia3"
+							class="custom" /> <label for="viewMedia3">Photos</label> <input
+							type="checkbox" name="viewMedia" id="viewMedia4" class="custom" />
+						<label for="viewMedia4">Recorded video</label>
+					</fieldset>
+				</div>
+
+				<CENTER>
+					<INPUT type="submit" id="newViewRequest" data-role="button"
+						data-transition="fade" CLASS="updateButton" data-inline="true"
+						data-theme="b" VALUE="send request">
+				</CENTER>
+
+			</FORM>
+
+			<H3>Search Events</H3>
+			<BR />
+
+			<div data-role="fieldcontain">
+				<label for="search">Search Input:</label><BR /> <input
+					type="search" name="password" id="search" value="" /><BR />
+				<CENTER>
+					<input type="submit" value="search" data-theme="b"
+						data-inline="true" />
+				</CENTER>
+			</div>
+
+		</DIV>
+		<!-- end content-page -->
+
+	</div>
+	<!-- /page -->
 
 
 <script type="text/javascript">
@@ -297,6 +334,7 @@ $(function() {
 	$("#link_viewer").click(function(){
 		navigator.geolocation.getCurrentPosition(onSuccessWatch, onError, {timeout:10000});
 	});
+	$( "#tabs" ).tabs({ selected : 1 });
 });
 
 </script>
