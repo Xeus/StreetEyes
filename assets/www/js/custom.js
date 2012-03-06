@@ -23,6 +23,7 @@
             'Device Version: '  + device.version  + ', '; //
     	console.log(elementDeviceProperties);
         $("#requestsDiv").load("http://benturner.com/streeteyes/requests.php");
+        $("#streamContainer").load("http://benturner.com/streeteyes/stream.php");
         $("#lastUpdate").load("http://benturner.com/streeteyes/lastupdate.php");
         /*$.mobile.loadPage("http://benturner.com/streeteyes/requests.php",
         		{
@@ -54,6 +55,25 @@
                 map: map,
                 title:"NYU-ITP"
             });
+            
+         // info box on pin
+            var contentString = '<div id="mapProfile">'+
+            '<img src="img/profiles/1.jpg" img align="left" width="40px" heigh="40px"/>'+
+            '<h3 id="mapHeading">Ben Turner</h3>'+
+            '<div id="mapContent">'+
+            '<p>3 hrs ago: At ITP, not too crowded</p>'+
+            '<button type="button" onclick="#">Request Eyes</button>'+
+            '</div>'+
+            '</div>'; //
+         
+        	var infowindow = new google.maps.InfoWindow({
+            	content: contentString
+        		});
+        	// info box on pin
+            
+            google.maps.event.addListener(marker, 'click', function() {
+            	infowindow.open(map,marker);
+            	});
         }
    		
     	function init() {
@@ -64,11 +84,11 @@
         function onSuccess(position) {
 			console.log("onSuccess() called.");
             var element = document.getElementById('geolocation');
-            element.innerHTML = '<img src="http://maps.google.com/maps/api/staticmap?center='
+            element.innerHTML = '<center><img src="http://maps.google.com/maps/api/staticmap?center='
             + position.coords.latitude+ ',' +position.coords.longitude +
-            '&zoom=14&size=200x100&maptype=roadmap&markers=color:blue%7Clabel:U%7C' +
+            '&zoom=14&size=300x100&maptype=roadmap&markers=color:blue%7Clabel:U%7C' +
             position.coords.latitude+ ',' +position.coords.longitude +
-            '&key=AIzaSyBxSfRY29fktTa2m21a9vKumb3UfUo-4eI&sensor=true" height="100" width="200" align="left" border="1" />';
+            '&key=AIzaSyBxSfRY29fktTa2m21a9vKumb3UfUo-4eI&sensor=true" height="100" width="300" align="left" border="1" /></center>';
             
             console.log('Latitude: '           + position.coords.latitude              + '<br />' +
             'Longitude: '          + position.coords.longitude             + '<br />' +
@@ -98,25 +118,6 @@
         	var lat = 40.729367;
         	var lon = -73.993902;
         }
-
-        // info box on pin
-        var contentString = '<div id="mapProfile">'+
-        '<img src="img/profiles/1.jpg" img align="left" width="40px" heigh="40px"/>'+
-        '<h3 id="mapHeading">Ben Turner</h3>'+
-        '<div id="mapContent">'+
-        '<p>3 hrs ago: At ITP, not too crowded</p>'+
-        '<button type="button" onclick="#">Request Eyes</button>'+
-        '</div>'+
-        '</div>';
-     
-    	var infowindow = new google.maps.InfoWindow({
-        	content: contentString
-    		});
-    	// info box on pin
-        
-        google.maps.event.addListener(marker, 'click', function() {
-        	infowindow.open(map,marker);
-        	});
         
         
         
@@ -142,6 +143,7 @@
       		// Show the captured photo
       		// The inline CSS rules are used to resize the image
       		smallImage.src = "data:image/jpeg;base64," + imageData;
+      		//document.getElementById('updatePhoto').value = "data:image/jpeg;base64," + imageData;
     	}
 
     	// Called when a photo is successfully retrieved
@@ -159,6 +161,7 @@
       		// Show the captured photo
       		// The inline CSS rules are used to resize the image
       		largeImage.src = imageURI;
+      		//document.getElementById('updatePhoto').value = imageURI;
     	}
 
     	// A button will call this function
@@ -187,6 +190,33 @@
     	// Called if something bad happens. 
     	function onFail(message) {
 			console.log("onFail() called.");
-      		alert('Failed because: ' + message);
+      		// alert('Failed because: ' + message);
     	}
         
+    	function uploadPhoto(imageURI) {
+            var options = new FileUploadOptions();
+            options.fileKey="file";
+            options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
+            options.mimeType="image/jpeg";
+ 
+            var params = new Object();
+            params.value1 = "test";
+            params.value2 = "param";
+ 
+            options.params = params;
+            options.chunkedMode = false;
+ 
+            var ft = new FileTransfer();
+            ft.upload(imageURI, "http://benturner.com/streeteyes/img/upload/", win, fail, options);
+        }
+ 
+        function win(r) {
+            console.log("Code = " + r.responseCode);
+            console.log("Response = " + r.response);
+            console.log("Sent = " + r.bytesSent);
+            alert(r.response);
+        }
+ 
+        function fail(error) {
+            alert("An error has occurred: Code = " + error.code);
+        }

@@ -15,18 +15,18 @@
 		$.support.cors = true;
 		$.mobile.allowCrossDomainPages = true;
 		$.mobile.defaultPageTransition = 'none'; // docs say defaultTransition but are wrong!
-	}); //
+	});
 </script>
 <script type="text/javascript" charset="utf-8" src="jquery.mobile/jquery.mobile-1.1.0-rc.1.min"></script>
 <script type="text/javascript" charset="utf-8" src="js/phonegap-1.4.1.js"></script>
 <script type="text/javascript" charset="utf-8" src="js/infrontof.js"></script>
-<script type="text/javascript" charset="utf-8" src="js/custom.js"></script>
 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDHwAJbB8jkEMvSkZpGBDxSB1fK5MpGfNQ&sensor=false"></script>
+<script type="text/javascript" charset="utf-8" src="js/custom.js"></script>
 </head>
 
 <body>
 
-	<div data-role="page" id="broadcaster">
+	<div data-role="page" id="broadcaster" data-theme="a">
 
 		<DIV data-role="header" data-theme="a" data-position="fixed">
 
@@ -36,7 +36,7 @@
 					<TD VALIGN="middle" ALIGN="right"><a href="#search"
 						data-role="button" data-mini="true" data-icon="search"
 						data-theme="e" data-inline="true" data-iconpos="notext"
-						style="vertical-align: middle;" data-mini="true">Search</a> <a
+						style="vertical-align: middle;" data-mini="true" CLASS="link_search">Search</a> <a
 						href="#settings" data-role="button" data-icon="gear"
 						data-theme="e" data-inline="true" data-iconpos="notext"
 						style="vertical-align: middle;">Settings</a></TD>
@@ -48,52 +48,55 @@
 					<LI><A HREF="#broadcaster" class="ui-btn-active" data-theme="e">Broadcast Now!</A></LI>
 					<li><a href="#streams" ID="link_viewer" data-theme="e">View Streams</a></li>
 				</ul>
-			</div>
-			<!-- /navbar -->
+			</div> <!-- /navbar -->
 
-		</DIV>
-		<!-- /header -->
+		</DIV> <!-- /header -->
 
 		<div data-role="content" data-theme="a">
 			<!--  insert external div -->
 			<div id="lastUpdate"></div><BR />
 
-			<p id="geolocation">Finding geolocation...</p>
-
+			<p id="geolocation" STYLE="text-align: center; margin: auto; display: inline;">Finding geolocation...</p>
+			
+			<FORM NAME="updateForm" ID="updateForm" data-ajax="false" enctype="multipart/form-data" METHOD="post" ACTION="http://benturner.com/streeteyes/statusupdate.php">
+			<input type="hidden" name="updatePhoto" id="updatePhoto" VALUE="" />
+			<input type="hidden" name="updateBroadcast" id="updateBroadcast" VALUE="true" />
 			<div data-role="fieldcontain">
 			
 			<label class="labelInput">
-			<span>What are you seeing?</span><input type="text" name="update" id="update" data-theme="a" value="" />
+			<span>What are you seeing?</span><input type="text" name="updateStatus" id="updateStatus" data-theme="a" value="" />
 			</label>
 			<BR />
 			<label class="labelInput">
-			<span>Your Ustream URL:</span><input type="text" name="ustream" id="ustream" data-theme="a" value="" />
+			<span>Your Ustream URL:</span><input type="text" name="updateUstream" id="updateUstream" data-theme="a" value="" />
 			</label>
 			<BR />
 			Attach photo:<BR /><small>
-			<button onclick="capturePhoto();" class="camera" data-mini="true">CapturePhoto</button>
+			<button onclick="capturePhoto();" class="camera" data-mini="true">Capture Photo</button>
 					<button onclick="getPhoto(pictureSource.PHOTOLIBRARY);"
 						class="camera" data-mini="true">Gallery</button>
 					<!-- <button onclick="capturePhotoEdit();" class="camera">Capture
 						Editable Photo</button>
 					<button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);"
-						class="camera">From Photo Album</button> <img
-					style="display: none; width: 60px; height: 60px;" id="smallImage"
-					src="" /> <img style="display: none;" id="largeImage" src="" /> --><BR />
+						class="camera">From Photo Album</button> -->
+						<img style="display: none; width: 60px; height: 60px;" id="smallImage"
+					src="" /> <img style="display: none;" id="largeImage" src="" /><BR />
 				</small>
 			</div>
 
 			<CENTER>
-				<a href="buttons-types.html" data-role="button"
-					data-transition="fade" CLASS="updateButton" data-inline="true"
+				<a href="" data-role="button" ID="statusUpdate" data-ajax="false"
+					CLASS="updateButton" data-inline="true"
 					data-theme="b">send update</a>
 			</CENTER>
+			
+			</FORM>
+			
+			<DIV ID="sentSU"></DIV>
 
-		</DIV>
-		<!-- /content -->
+		</DIV> <!-- /content -->
 
-	</div>
-	<!-- /page -->
+	</div> <!-- /page -->
 
 
 
@@ -112,7 +115,7 @@
 					<TD VALIGN="middle" ALIGN="right"><a href="#search"
 						data-role="button" data-mini="true" data-icon="search"
 						data-theme="e" data-inline="true" data-iconpos="notext"
-						style="vertical-align: middle;" data-mini="true">Search</a> <a
+						style="vertical-align: middle;" data-mini="true" CLASS="link_search">Search</a> <a
 						href="#settings" data-role="button" data-icon="gear"
 						data-theme="e" data-inline="true" data-iconpos="notext"
 						style="vertical-align: middle;">Settings</a></TD>
@@ -133,26 +136,46 @@
 
 		<div data-role="content">
 		
-<div id="tabs">
-	<ul>
-		<li><a href="#tabs-1">Requests</a></li>
-		<li><a href="#tabs-2">Public</a></li>
-		<li><a href="#tabs-2">Active</a></li>
-	</ul>
-	<div id="tabs-1">
-		<DIV ID="requestsDiv"></DIV>
-	</div>
-	<div id="tabs-2">
+	<div id="requests" style="display: none;"><div id="requestsDiv"></div></div>
+
+	<div id="public" style="display: none;">
+		<BR />
 		No public streams yet.
 	</div>
-	<div id="tabs-3">
-		Active streams here.
-	</div>
-</div>		
+	<div id="active" style="display: block;">
+		<BR />
+		
+		
+<div id="streamContainer"></div>
 
-			
+<BR /><BR />
+<FORM NAME="chatForm" ID="chatForm" METHOD="post" data-ajax="false" ACTION="">
+<INPUT TYPE="hidden" ID="chatID" NAME="chatID" VALUE=1 />
+<INPUT TYPE="hidden" ID="chatBroadcast" NAME="chatBroadcast" VALUE="true" />
+<TABLE BORDER=0 ID="chatTable"><TR><TD>
+Say something:<BR />
+<INPUT TYPE="text" NAME="chatMsg" ID="chatMsg" />
+</TD><TD>
+Your nick/handle/name:<BR />
+<INPUT TYPE="text" NAME="chatNick" ID="chatNick" />
+</TD></TR></TABLE>
+<INPUT TYPE="submit" ID="chatSubmit" NAME="chatSubmit" VALUE="send message" data-mini="true" />
+</FORM>
 
+	</div>	
 		</DIV> <!-- end content-page -->
+		
+		<DIV data-role="footer" data-theme="a" data-position="fixed">
+		
+		<div data-role="navbar">
+	<ul>
+		<li><a id="buttonRequests" HREF="">Requests</a></li>
+		<li><a id="buttonPublic" HREF="">Public</a></li>
+		<li><a id="buttonActive" HREF="">Active</a></li>
+	</ul>
+</div><!-- /navbar -->
+
+</div> <!-- /footer -->
 
 	</div>
 	<!-- /page -->
@@ -174,10 +197,10 @@
 					<TD VALIGN="middle" ALIGN="right"><a href="#search"
 						data-role="button" data-mini="true" data-icon="search"
 						data-theme="e" data-inline="true" data-iconpos="notext"
-						style="vertical-align: middle;" data-mini="true">Search</a> <a
+						style="vertical-align: middle;" data-mini="true" CLASS="link_search">Search</a> <a
 						href="#settings" data-role="button" data-icon="gear"
 						data-theme="e" data-inline="true" data-iconpos="notext"
-						style="vertical-align: middle;">Settings</a></TD>
+						style="vertical-align: middle;" class="ui-btn-active">Settings</a></TD>
 				</TR>
 			</TABLE>
 
@@ -194,14 +217,18 @@
 
 		<div data-role="content">
 
-			<H3>YOUR PROFILE</H3>
-			<BR /> Your real name/pseudonym?<BR /> <input type="text"
-				name="profileName" id="profileName" data-theme="a" value="" /> <BR />
-
-			Your bio?<BR />
-			<textarea name="profileBio" id="profileBio" data-theme="a" rows=3
-				cols=30></textarea>
+			<BR /><H3>YOUR PROFILE</H3>
 			<BR />
+			<label class="labelInput">
+			<span>Your real name/pseudonym?</span><input type="text" name="profileName" id="profileName" data-theme="a" value="" />
+			</label>
+			
+			<BR />
+			
+			<label class="labelInput">
+			<span>Your bio?</span><textarea name="profileBio" id="profileBio" data-theme="a" rows=3
+				cols=30></textarea>
+			</label>
 
 			<div data-role="fieldcontain">
 				<legend>App Settings</legend>
@@ -240,10 +267,10 @@
 			<TABLE BORDER=0 WIDTH="100%" CELLPADDING=0 CELLSPACING=0>
 				<TR>
 					<TD CLASS="title" ALIGN="left"> <A HREF="./index.html"><B>StreetEyes</B></A></TD>
-					<TD VALIGN="middle" ALIGN="right"><a href="#search"
+					<TD VALIGN="middle" ALIGN="right"><a href="#search" CLASS="link_search"
 						data-role="button" data-mini="true" data-icon="search"
 						data-theme="e" data-inline="true" data-iconpos="notext"
-						style="vertical-align: middle;" data-mini="true">Search</a> <a
+						style="vertical-align: middle;" data-mini="true" class="ui-btn-active">Search</a> <a
 						href="#settings" data-role="button" data-icon="gear"
 						data-theme="e" data-inline="true" data-iconpos="notext"
 						style="vertical-align: middle;">Settings</a></TD>
@@ -263,29 +290,26 @@
 
 		<div data-role="content">
 
-			<FORM NAME="viewForm" ID="viewForm" METHOD="post"
+			<BR /><FORM NAME="viewForm" ID="viewForm" METHOD="post"
 				ACTION="http://benturner.com/streeteyes/newviewrequest.php">
 				<H3>Location of Active Eyes</H3><BR />
 				<div id="map_canvas" style="width: 90%; height: 250px"></div>
-
-				<div data-role="fieldcontain">
-					Change location?<BR /> <input type="search" name="viewLocation"
-						id="viewLocation" value="" SIZE=50 /> <a href="#search"
+				<BR />
+				<label class="labelInput"><span>Change location?</span><input type="search" name="viewLocation" id="viewLocation" data-theme="a" value="" /></label>
+				<a href="#search"
 						data-role="button" data-transition="fade" CLASS="updateButton"
 						data-inline="true" data-theme="a" STYLE="font-size: 8pt;">look
-						up location</a>
-				</div>
+						up location</a> 
+						<BR /><BR />
+				<label class="labelInput">
+			<span>Request broadcast from which user?</span><input type="text" name="viewUser" id="viewUser" data-theme="a" value="" />
+			</label>
+			<BR />
 
-				<div data-role="fieldcontain">
-					Request broadcast from which user?<BR /> <input type="text"
-						name="viewUser" id="viewUser" value="" SIZE=30 />
-				</div>
-
-				<div data-role="fieldcontain">
-					What do you want to get eyes on?<BR /> <input type="text"
-						name="viewWhat" id="viewWhat" value="" SIZE=30 />
-				</div>
-
+			<label class="labelInput">
+			<span>What do you want to get eyes on?</span><input type="text" name="viewWhat" id="viewWhat" data-theme="a" value="" />
+			</label>
+			<BR />
 				<div data-role="fieldcontain">
 					What multimedia do you want broadcasted?
 					<fieldset data-role="controlgroup">
@@ -298,13 +322,14 @@
 							type="checkbox" name="viewMedia" id="viewMedia4" class="custom" />
 						<label for="viewMedia4">Recorded video</label>
 					</fieldset>
-				</div>
 
 				<CENTER>
 					<INPUT type="submit" id="newViewRequest" data-role="button"
 						data-transition="fade" CLASS="updateButton" data-inline="true"
 						data-theme="b" VALUE="send request">
 				</CENTER>
+				
+				</div>
 
 			</FORM>
 
@@ -312,8 +337,7 @@
 			<BR />
 
 			<div data-role="fieldcontain">
-				<label for="search">Search Input:</label><BR /> <input
-					type="search" name="password" id="search" value="" /><BR />
+			<input type="search" name="password" id="search" value="" /><BR />
 				<CENTER>
 					<input type="submit" value="search" data-theme="b"
 						data-inline="true" />
@@ -331,10 +355,60 @@
 
 $(function() {
 	init();
-	$("#link_viewer").click(function(){
+	$(".link_search").click(function(){
 		navigator.geolocation.getCurrentPosition(onSuccessWatch, onError, {timeout:10000});
 	});
-	$( "#tabs" ).tabs({ selected : 1 });
+	$("#buttonRequests").click(function() {
+		$("#requests").css('display', 'block');
+		$("#active").css('display', 'none');
+		$("#public").css('display', 'none');
+	});
+	$("#buttonActive").click(function() {
+		$("#requests").css('display', 'none');
+		$("#active").css('display', 'block');
+		$("#public").css('display', 'none');
+	});
+	$("#buttonPublic").click(function() {
+		$("#requests").css('display', 'none');
+		$("#active").css('display', 'none');
+		$("#public").css('display', 'block');
+	});
+	$("#statusUpdate").click(function() {
+		console.log("click fired");
+		var dataString = 'updateStatus=' + $("input#updateStatus").val() + '&updateUstream=' + $("input#updateUstream").val() + '&updatePhoto=' + $("input#updatePhoto").val() + '&updateGeoLat=' + $("input#updateGeoLat").val() + '&updateGeoLon=' + $("input#updateGeoLon") + '&updateBroadcast=' + $("#updateBroadcast").val();
+		$.mobile.loadPage("http://benturner.com/streeteyes/statusupdate.php?" + dataString, {
+	        reloadPage : true
+	    }); 
+			$("#sentSU").html("<CENTER>Update sent.</CENTER>");
+			/* $.ajax({  
+  				type: "POST",  
+  				cache: false,
+  				url: "http://benturner.com/streeteyes/statusupdate.php",  
+  				data: dataString,
+  				success: function() {   
+  	  				$("#sentSU").html("Update sent.");
+  				}
+			}); */
+		
+		return false;
+	});
+	$("#chatSubmit").click(function() {
+		console.log("click fired");
+		var dataString = 'streamID=' + $("input#chatID").val() + '&chatNick=' + $("input#chatNick").val() + '&chatMsg=' + $("input#chatMsg").val() + '&updateBroadcast=false';
+		$.mobile.loadPage("http://benturner.com/streeteyes/sendchat.php?" + dataString, {
+        	reloadPage : true
+        }); 
+		$("#streamList").load("http://benturner.com/streeteyes/streams_mobile.php");
+		/* $.ajax({  
+  			type: "POST", 
+  			cache: false,
+  			url: "http://benturner.com/streeteyes/sendchat.php",  
+  			data: dataString,  
+  			success: function() {   
+  				$("#streamList").load("http://benturner.com/streeteyes/streams_mobile.php");
+  			} */ 
+		return false; //
+	});
 });
 
 </script>

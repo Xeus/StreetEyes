@@ -29,3 +29,12 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
     .labelInput input, .labelInput textarea, .labelInput select { padding: 4px; }
 }
+
+.updateAtom { margin: 5px; padding: 10px; border-style: dotted; border-color: black; border-width: 1px; }
+	.updateAtomChat { color: gray; }
+	.bodyAtom { color: black; }
+	.detailsAtom { color: gray; font-size: 8pt; }
+	.streamAtom { border-style: dotted; border-color: black; border-width: 1px;}
+	.headerAtom { font-weight: bold; font-size: 15pt; color: black; }
+	#chatTable TD, #chatTable INPUT[type="text"] { font-size: 8pt;}
+	#streamContainer { background: white; padding: 7px; }
