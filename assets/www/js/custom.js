@@ -1,15 +1,17 @@
-	// onError Callback receives a PositionError object
+var pictureSource;   // picture source
+var destinationType; // sets the format of returned value 	
+var watchID = null;
+var map = null;
+// var map2 = null;
+var position = null;
+
+// onError Callback receives a PositionError object
     function onError(error) {
 			console.log("onError() called.");
             alert('code: '    + error.code    + '\n' +
                   'message: ' + error.message + '\n');
     }
-
-	var watchID = null;
-	var map = null;
-	// var map2 = null;
-	var position = null;
-   		
+    
     var onDeviceReady = function() {
 		console.log("onDeviceReady() called.");
 		navigator.geolocation.getCurrentPosition(onSuccess, onError, {timeout:10000});
@@ -58,11 +60,11 @@
             
          // info box on pin
             var contentString = '<div id="mapProfile">'+
-            '<img src="img/profiles/1.jpg" img align="left" width="40px" heigh="40px"/>'+
+            '<img src="http://benturner.com/streeteyes/img/profiles/1.jpg" img align="left" width="40px" heigh="40px"/>'+
             '<h3 id="mapHeading">Ben Turner</h3>'+
             '<div id="mapContent">'+
             '<p>3 hrs ago: At ITP, not too crowded</p>'+
-            '<button type="button" onclick="#">Request Eyes</button>'+
+            '<button type="button" onclick="#" CLASS="markerButton">Request Eyes</button>'+
             '</div>'+
             '</div>'; //
          
@@ -74,6 +76,8 @@
             google.maps.event.addListener(marker, 'click', function() {
             	infowindow.open(map,marker);
             	});
+            
+            $(".markerButton").button();
         }
    		
     	function init() {
@@ -119,11 +123,7 @@
         	var lon = -73.993902;
         }
         
-        
-        
-        
-    	var pictureSource;   // picture source
-    	var destinationType; // sets the format of returned value 
+       
 
     	// Wait for PhoneGap to connect with the device
     	//document.addEventListener("deviceready",onDeviceReady,false);
@@ -190,7 +190,7 @@
     	// Called if something bad happens. 
     	function onFail(message) {
 			console.log("onFail() called.");
-      		// alert('Failed because: ' + message);
+      		alert('Failed because: ' + message);
     	}
         
     	function uploadPhoto(imageURI) {

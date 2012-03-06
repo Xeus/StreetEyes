@@ -1,11 +1,12 @@
-	H1,H3,H4 { display: inline; }
-	#header ul li { text-wrap: none; font-size: 8pt; font-family: Arial; }
-	#updateButton { font-size: 8pt; }
-	.request { padding: 5px; margin-bottom: 10px; }
-	button { font-size: 8pt; }
-	.title A,B { letter-spacing: -1px; font-size: 20pt; text-decoration: none; color: white; }
-	.submitRequest { font-size: 8pt; }
-	.input {
+H1,H3,H4 { display: inline; }
+#header ul li { text-wrap: none; font-size: 8pt; font-family: Arial; }
+#updateButton { font-size: 8pt; }
+.request { padding: 5px; margin-bottom: 10px; }
+button { font-size: 8pt; }
+.title A,B { letter-spacing: -1px; font-size: 20pt; text-decoration: none; color: white; }
+.submitRequest { font-size: 8pt; }
+#mapProfile { color: black; font-size: 8pt; }
+.input {
   margin: 5px 0;
   background: white;
   float: left;
