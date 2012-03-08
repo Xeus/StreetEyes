@@ -61,7 +61,7 @@ var position = null;
             
          // info box on pin
             var contentString = '<div class="mapProfile">'+
-            '<img src="http://benturner.com/streeteyes/img/profiles/1.jpg" align="left" width="40px" height="40px" />'+
+            '<img src="http://benturner.com/streeteyes/img/profiles/1.jpg" align="left" width="40" height="40" />'+
             '<h3 class="mapHeading">Ben Turner</h3><BR />'+
             '<span class="mapContent">'+
             '3 hrs ago: At ITP, not too crowded<BR />'+
@@ -88,7 +88,7 @@ var position = null;
         	});
 
         	var contentString2 = '<div class="mapProfile">'+
-        	'<img src="http://www.bing.com/getimage?q=FCLB_fb725d31-f311-f42f-671b-00cb100f7891_1&wf=Genimage" align="left" width="40px" height="40px"/>'+
+        	'<img src="http://www.bing.com/getimage?q=FCLB_fb725d31-f311-f42f-671b-00cb100f7891_1&wf=Genimage" align="left" width="40" height="40"/>'+
         	'<h3 class="mapHeading">Walter Cronkite</h3><BR />'+
         	'<span class="mapContent">'+
         	'1 hr ago: Getting drunk on 5th Ave. Struggling to see straight.<BR />'+
@@ -114,7 +114,7 @@ var position = null;
         	});
 
         	var contentString3 = '<div class="mapProfile">'+
-        	'<img src="http://ia.media-imdb.com/images/M/MV5BMTk5NjUxNDc3MV5BMl5BanBnXkFtZTcwNTA4NDIzMQ@@._V1._CR46,0,278,278_SS100_.jpg" align="left" width="40px" height="40px"/>'+
+        	'<img src="http://ia.media-imdb.com/images/M/MV5BMTk5NjUxNDc3MV5BMl5BanBnXkFtZTcwNTA4NDIzMQ@@._V1._CR46,0,278,278_SS100_.jpg" align="left" width="40" height="40"/>'+
         	'<h3 class="mapHeading">Lara Logan</h3><BR />'+
         	'<span class="mapContent">'+
         	'1 hr ago: Occupy is taking over the East Village.<BR />'+
@@ -140,7 +140,7 @@ var position = null;
         	});
 
         	var contentString4 = '<div class="mapProfile">'+
-        	'<img src="http://fitsnews.com/wp-content/uploads/2012/02/rick-santorum-frontrunner-100x100.jpg" align="left" width="40px" height="40px"/>'+
+        	'<img src="http://fitsnews.com/wp-content/uploads/2012/02/rick-santorum-frontrunner-100x100.jpg" align="left" width="40" height="40"/>'+
         	'<h3 class="mapHeading">Ricki S.</h3><BR />'+
         	'<span class="mapContent">'+
         	'1 hr ago: Chilling in Union Sq. Check out this street juggler.<BR />'+
