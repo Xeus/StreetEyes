@@ -17,7 +17,7 @@ button { font-size: 8pt; }
 .updateAtomChat { color: gray; padding-left: 20px; }
 .bodyAtom { color: black; }
 .detailsAtom { color: gray; font-size: 8pt; }
-.headerText { color: black !important; }
+.headerText { color: black !important; font-weight: bold; }
 .streamAtom { border-style: dotted; border-color: black; border-width: 2px;}
 .headerAtom { font-size: 15pt; color: black !important; }
 #streamList { background: #FEEEBD; padding: 7px; }
