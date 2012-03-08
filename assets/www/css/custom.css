@@ -1,41 +1,40 @@
+BODY { text-shadow: none; box-shadow: none; }
 H1,H3,H4 { display: inline; }
 #header ul li { text-wrap: none; font-size: 8pt; font-family: Arial; }
-#updateButton { font-size: 8pt; }
+.updateButton { font-size: 8pt; }
 .request { padding: 5px; margin-bottom: 10px; }
 button { font-size: 8pt; }
 .title A,B { letter-spacing: -1px; font-size: 20pt; text-decoration: none; color: white; }
 .submitRequest { font-size: 8pt; }
-#mapProfile { color: black; font-size: 8pt; }
-.input {
-  margin: 5px 0;
-  background: white;
-  float: left;
-  clear: both;
-}
-.labelInput span {
-  position: absolute;
-  padding: 5px;
-  margin-left: 3px;
-  color: #999;
-}
-.labelInput input, .labelInput textarea, .labelInput select {
-  position: relative;
-  margin: 0;
-  border-width: 1px;
-  padding: 6px;
-  background: transparent;
-  font: inherit;
-}
+#mapProfile { color: black; font-size: 8pt;}
+
 /* Hack to remove Safari's extra padding. Remove if you don't care about pixel-perfection. */
 @media screen and (-webkit-min-device-pixel-ratio:0) {
     .labelInput input, .labelInput textarea, .labelInput select { padding: 4px; }
 }
 
-.updateAtom { margin: 5px; padding: 10px; border-style: dotted; border-color: black; border-width: 1px; }
-	.updateAtomChat { color: gray; }
-	.bodyAtom { color: black; }
-	.detailsAtom { color: gray; font-size: 8pt; }
-	.streamAtom { border-style: dotted; border-color: black; border-width: 1px;}
-	.headerAtom { font-weight: bold; font-size: 15pt; color: black; }
-	#chatTable TD, #chatTable INPUT[type="text"] { font-size: 8pt;}
-	#streamContainer { background: white; padding: 7px; }
+.updateAtom { margin: 5px; padding: 10px; border-style: dotted; border-color: black; border-width: 2px; }
+.updateAtomChat { color: gray; padding-left: 20px; }
+.bodyAtom { color: black; }
+.detailsAtom { color: gray; font-size: 8pt; }
+.headerText { color: black !important; }
+.streamAtom { border-style: dotted; border-color: black; border-width: 2px;}
+.headerAtom { font-size: 15pt; color: black !important; }
+#streamList { background: #FEEEBD; padding: 7px; }
+
+#chatTable TD, #chatTable INPUT[type="text"] { font-size: 8pt;}
+
+	
+.mapContent {
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 10px;
+	color: #333;
+}
+
+.mapHeading {
+	display: inline;
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 12px;
+	color: #333;
+}
+	

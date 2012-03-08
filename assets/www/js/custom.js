@@ -1,5 +1,5 @@
 var pictureSource;   // picture source
-var destinationType; // sets the format of returned value 	
+var destinationType; // sets the format of returned value 
 var watchID = null;
 var map = null;
 // var map2 = null;
@@ -52,40 +52,143 @@ var position = null;
             }); */
             
             map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+            
             var marker = new google.maps.Marker({
                 position: myLatlng_map,
                 map: map,
-                title:"NYU-ITP"
+                title:"Ben Turner"
             });
             
          // info box on pin
-            var contentString = '<div id="mapProfile">'+
-            '<img src="http://benturner.com/streeteyes/img/profiles/1.jpg" img align="left" width="40px" heigh="40px"/>'+
-            '<h3 id="mapHeading">Ben Turner</h3>'+
-            '<div id="mapContent">'+
-            '<p>3 hrs ago: At ITP, not too crowded</p>'+
+            var contentString = '<div class="mapProfile">'+
+            '<img src="http://benturner.com/streeteyes/img/profiles/1.jpg" align="left" width="40px" height="40px" />'+
+            '<h3 class="mapHeading">Ben Turner</h3><BR />'+
+            '<span class="mapContent">'+
+            '3 hrs ago: At ITP, not too crowded<BR />'+
             '<button type="button" onclick="#" CLASS="markerButton">Request Eyes</button>'+
-            '</div>'+
+            '</span>'+
             '</div>'; //
          
         	var infowindow = new google.maps.InfoWindow({
             	content: contentString
         		});
         	// info box on pin
-            
-            google.maps.event.addListener(marker, 'click', function() {
+        	
+        	google.maps.event.addListener(marker, 'click', function() {
             	infowindow.open(map,marker);
             	});
+        	
+        	// info box on pin2
+
+        	myLatlng_map2 = new google.maps.LatLng(40.734283, -73.99498);
+        	var marker2 = new google.maps.Marker({
+        		position: myLatlng_map2,
+        		map: map,
+        		title: "Walter Cronkite"
+        	});
+
+        	var contentString2 = '<div class="mapProfile">'+
+        	'<img src="http://www.bing.com/getimage?q=FCLB_fb725d31-f311-f42f-671b-00cb100f7891_1&wf=Genimage" align="left" width="40px" height="40px"/>'+
+        	'<h3 class="mapHeading">Walter Cronkite</h3><BR />'+
+        	'<span class="mapContent">'+
+        	'1 hr ago: Getting drunk on 5th Ave. Struggling to see straight.<BR />'+
+        	'<button type="button" onclick="#" CLASS="markerButton">Request Eyes</button>'+
+        	'</span>'+
+        	'</div>'; //
+
+        	var infowindow2 = new google.maps.InfoWindow({
+        		content: contentString2
+        	});
+
+        	google.maps.event.addListener(marker2, 'click', function() {
+        		infowindow2.open(map,marker2);
+        	});
+
+        	// info box on pin3
+
+        	myLatlng_map3 = new google.maps.LatLng(40.72738, -73.988585);
+        	var marker3 = new google.maps.Marker({
+        		position: myLatlng_map3,
+        		map: map,
+        		title: "Lara Logan"
+        	});
+
+        	var contentString3 = '<div class="mapProfile">'+
+        	'<img src="http://ia.media-imdb.com/images/M/MV5BMTk5NjUxNDc3MV5BMl5BanBnXkFtZTcwNTA4NDIzMQ@@._V1._CR46,0,278,278_SS100_.jpg" align="left" width="40px" height="40px"/>'+
+        	'<h3 class="mapHeading">Lara Logan</h3><BR />'+
+        	'<span class="mapContent">'+
+        	'1 hr ago: Occupy is taking over the East Village.<BR />'+
+        	'<button type="button" onclick="#" CLASS="markerButton">Request Eyes</button>'+
+        	'</span>'+
+        	'</div>'; //
+
+        	var infowindow3 = new google.maps.InfoWindow({
+        		content: contentString3
+        	});
+
+        	google.maps.event.addListener(marker3, 'click', function() {
+        		infowindow3.open(map,marker3);
+        	});
+        	
+        	// info box on pin4
+
+        	myLatlng_map4 = new google.maps.LatLng(40.735275, -73.991075);
+        	var marker4 = new google.maps.Marker({
+        		position: myLatlng_map4,
+        		map: map,
+        		title: "Ricki S."
+        	});
+
+        	var contentString4 = '<div class="mapProfile">'+
+        	'<img src="http://fitsnews.com/wp-content/uploads/2012/02/rick-santorum-frontrunner-100x100.jpg" align="left" width="40px" height="40px"/>'+
+        	'<h3 class="mapHeading">Ricki S.</h3><BR />'+
+        	'<span class="mapContent">'+
+        	'1 hr ago: Chilling in Union Sq. Check out this street juggler.<BR />'+
+        	'<button type="button" onclick="#" CLASS="markerButton">Request Eyes</button>'+
+        	'</span>'+
+        	'</div>'; //
+
+        	var infowindow4 = new google.maps.InfoWindow({
+        		content: contentString4
+        	});
+
+        	google.maps.event.addListener(marker4, 'click', function() {
+        		infowindow4.open(map,marker4);
+        	});
+        	
+        	// info box on pin5
+
+        	myLatlng_map5 = new google.maps.LatLng(40.735275, -73.991075);
+        	var marker5 = new google.maps.Marker({
+        		position: myLatlng_map5,
+        		map: map,
+        		title: "Phil Groman"
+        	});
+
+        	var contentString5 = '<div class="mapProfile">'+
+        	'<img src="http://benturner.com/img/profiles/0.jpg">Phil Groman</h3><BR />'+
+        	'<span class="mapContent">'+
+        	'1 hr ago: Heading to Manhattan from BK.<BR />'+
+        	'<button type="button" onclick="#" CLASS="markerButton">Request Eyes</button>'+
+        	'</span>'+
+        	'</div>'; //
+
+        	var infowindow5 = new google.maps.InfoWindow({
+        		content: contentString5
+        	});
+
+        	google.maps.event.addListener(marker5, 'click', function() {
+        		infowindow5.open(map,marker5);
+        	});
             
-            $(".markerButton").button();
         }
    		
-    	function init() {
+    	var init = function() {
 			console.log("init() called.");
             document.addEventListener("deviceready", onDeviceReady, false);
-        }   
+        };
         
-        function onSuccess(position) {
+        var onSuccess = function(position) {
 			console.log("onSuccess() called.");
             var element = document.getElementById('geolocation');
             element.innerHTML = '<center><img src="http://maps.google.com/maps/api/staticmap?center='
@@ -107,16 +210,16 @@ var position = null;
             $.mobile.loadPage("http://benturner.com/streeteyes/postgeoloc.php?lat=" + position.coords.latitude + "&lon=" + position.coords.longitude + "&id=1", {
             	reloadPage : true
             }); 
-        }
+        };
         
-        function onSuccessWatch(position) {
+        var onSuccessWatch = function(position) {
         	console.log("onSuccessWatch() called.");
         	google.maps.event.trigger(map_canvas, 'resize');
         	// google.maps.event.trigger(map_canvas2, 'resize');
         	var myLatlng_map = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
         	map.setCenter(myLatlng_map);
         	// map2.setCenter(myLatlng_map);
-        }
+        };
 
         if (lat == '') {
         	var lat = 40.729367;
